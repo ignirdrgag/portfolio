@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/contact.py": {
+      "maxDuration": 10
+    }
+  }
+}
