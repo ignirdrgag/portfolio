@@ -1,3 +1,4 @@
+import html as html_mod
 import os
 import re
 import smtplib
@@ -46,6 +47,40 @@ def _rate_limited(ip):
         return False
 
 
+def _render_html_email(name, email, subject, message):
+    e_name = html_mod.escape(name)
+    e_email = html_mod.escape(email)
+    e_subject = html_mod.escape(subject)
+    e_message = html_mod.escape(message).replace("\n", "<br>")
+    return (
+        '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f6f8fb;font-family:Inter,Arial,sans-serif;">'
+        '<div style="max-width:600px;margin:0 auto;padding:32px 16px;">'
+        '<div style="background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;">'
+        '<div style="background:linear-gradient(135deg,#0f766e,#115e59);padding:24px 28px;">'
+        '<div style="font-size:20px;font-weight:800;color:#ffffff;">Nouveau message</div>'
+        '<div style="font-size:13px;color:#e6f2f1;margin-top:4px;">Formulaire de contact — portfolio</div>'
+        '</div>'
+        '<div style="padding:28px;">'
+        f'<table cellpadding="0" cellspacing="0" border="0" style="width:100%;font-size:14px;color:#334155;">'
+        f'<tr><td style="padding:6px 0;color:#5b6b7f;width:96px;vertical-align:top;">Nom</td>'
+        f'<td style="padding:6px 0;font-weight:600;color:#0f172a;">{e_name}</td></tr>'
+        f'<tr><td style="padding:6px 0;color:#5b6b7f;width:96px;vertical-align:top;">Email</td>'
+        f'<td style="padding:6px 0;"><a href="mailto:{e_email}" style="color:#0f766e;text-decoration:none;font-weight:600;">{e_email}</a></td></tr>'
+        f'<tr><td style="padding:6px 0;color:#5b6b7f;width:96px;vertical-align:top;">Sujet</td>'
+        f'<td style="padding:6px 0;font-weight:600;color:#0f172a;">{e_subject}</td></tr>'
+        '</table>'
+        f'<div style="margin-top:16px;padding:16px 18px;background:#f0f4f9;border-left:3px solid #0f766e;border-radius:8px;font-size:14px;color:#334155;line-height:1.6;">{e_message}</div>'
+        '</div>'
+        '<div style="background:#f0f4f9;padding:14px 28px;border-top:1px solid #e2e8f0;font-size:12px;color:#5b6b7f;">'
+        'Abessolo Ovono Jean Freddy — Développeur Backend Django · '
+        '<a href="https://portfolio-e59o.vercel.app" style="color:#0f766e;text-decoration:none;">portfolio-e59o.vercel.app</a>'
+        '</div>'
+        '</div>'
+        '</div>'
+        '</body></html>'
+    )
+
+
 def _send_email(name, email, subject, message):
     msg = EmailMessage()
     sender = SMTP_USER if SMTP_USER else OWNER_EMAIL
@@ -61,6 +96,7 @@ def _send_email(name, email, subject, message):
         f"Sujet : {subject}\n\n"
         f"Message :\n{message}\n"
     )
+    msg.add_alternative(_render_html_email(name, email, subject, message), subtype="html")
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=20) as server:
         server.starttls()
         server.login(SMTP_USER, SMTP_PASSWORD)
