@@ -91,14 +91,12 @@
     .nav { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -.2px; }
     .brand-mark {
-      width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0;
+      width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
       background: linear-gradient(135deg, var(--accent), #14b8a6);
       color: #fff; display: grid; place-items: center;
-      font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 800;
+      font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 800;
       box-shadow: 0 6px 16px rgba(15, 118, 110, .35);
     }
-    .brand-name { line-height: 1.15; }
-    .brand-name small { display: block; font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: .4px; }
     .nav-links { display: flex; gap: 26px; }
     .nav-links a {
       color: var(--ink-2); font-size: 14.5px; font-weight: 600;
@@ -496,8 +494,22 @@
       display: grid; place-items: center; transition: all .2s;
     }
     .modal-close:hover { background: #dc2626; color: #fff; border-color: #dc2626; }
-    .modal-body { flex: 1; background: #3a4048; }
-    .modal-body iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .modal-body { flex: 1; background: #3a4048; overflow: auto; display: flex; flex-direction: column; align-items: center; }
+    .modal-body iframe { width: 100%; height: 100%; border: 0; display: block; flex: 1; }
+    .pdf-toolbar {
+      display: none; align-items: center; justify-content: center; gap: 12px;
+      padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--line);
+    }
+    .pdf-toolbar button {
+      width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--line-strong);
+      background: var(--surface); color: var(--ink-2); cursor: pointer; font-size: 16px;
+      display: grid; place-items: center; transition: all .2s;
+    }
+    .pdf-toolbar button:disabled { opacity: .4; cursor: default; }
+    .pdf-toolbar button:hover:not(:disabled) { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+    .pdf-page { font-size: 13px; color: var(--muted); font-weight: 600; min-width: 72px; text-align: center; }
+    #pdf-canvas { display: none; box-shadow: 0 4px 24px rgba(0,0,0,.45); margin: 20px auto; background: #ffffff; }
+    #pdf-status { display: none; color: #d7dee7; font-size: 13px; padding: 48px 20px; text-align: center; }
 
     /* ============ TOAST & BACK TO TOP ============ */
     .toast {
@@ -541,7 +553,6 @@
       .nav-links.open { display: flex; }
       .nav-links a { padding: 10px 4px; }
       .nav-links .menu-cv { display: block; }
-      .brand-name small { display: none; }
       .menu-btn { display: flex; }
       .hero-grid { grid-template-columns: 1fr; gap: 44px; }
       .portrait-card { max-width: 420px; }
@@ -555,7 +566,6 @@
     }
     @media (max-width: 560px) {
       .container { width: calc(100% - 28px); }
-      .brand-name { font-size: 13.5px; }
       .nav { gap: 12px; }
       section { padding: 64px 0; }
       .hero { padding: 52px 0 44px; }
@@ -583,7 +593,6 @@
     <div class="container nav">
       <a class="brand" href="#accueil">
         <span class="brand-mark">J</span>
-        <span class="brand-name">Jean Freddy Abessolo Ovono<small>Développeur Backend Django</small></span>
       </a>
       <nav class="nav-links" id="nav-links" aria-label="Navigation principale">
         <a href="#profil">Profil</a>
@@ -998,12 +1007,19 @@
           <span class="sub" id="modal-sub"></span>
         </div>
         <div class="modal-actions">
-          <a class="btn sm primary" id="modal-dl" href="#" download>⬇ Télécharger</a>
-          <button class="modal-close" id="modal-close" aria-label="Fermer">✕</button>
+          <a class="btn sm primary" id="modal-dl" href="#" download>&#8595; T&eacute;l&eacute;charger</a>
+          <button class="modal-close" id="modal-close" aria-label="Fermer">&#10005;</button>
         </div>
       </div>
+      <div class="pdf-toolbar" id="pdf-toolbar">
+        <button type="button" id="pdf-prev" aria-label="Page pr&eacute;c&eacute;dente">&#8249;</button>
+        <span class="pdf-page" id="pdf-page">1 / 1</span>
+        <button type="button" id="pdf-next" aria-label="Page suivante">&#8250;</button>
+      </div>
       <div class="modal-body">
-        <iframe id="modal-frame" title="Aperçu du document" loading="lazy"></iframe>
+        <div id="pdf-status">Chargement&hellip;</div>
+        <canvas id="pdf-canvas"></canvas>
+        <iframe id="modal-frame" title="Aper&ccedil;u du document" loading="lazy"></iframe>
       </div>
     </div>
   </div>
@@ -1013,7 +1029,11 @@
 
   <button id="toTop" aria-label="Revenir en haut de page" title="Revenir en haut">↑</button>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
     /* ================= THÈME CLAIR / SOMBRE ================= */
     (function () {
       const stored = localStorage.getItem('portfolio-theme');
@@ -1160,25 +1180,77 @@
     const modalSub = document.getElementById('modal-sub');
     const modalDl = document.getElementById('modal-dl');
     const modalClose = document.getElementById('modal-close');
+    const pdfCanvas = document.getElementById('pdf-canvas');
+    const pdfCtx = pdfCanvas.getContext('2d');
+    const pdfStatus = document.getElementById('pdf-status');
+    const pdfToolbar = document.getElementById('pdf-toolbar');
+    const pdfPrev = document.getElementById('pdf-prev');
+    const pdfNext = document.getElementById('pdf-next');
+    const pdfPageLabel = document.getElementById('pdf-page');
+    let pdfDoc = null, pdfPage = 1;
+
+    async function renderPdfPage(num) {
+      if (!pdfDoc) return;
+      const page = await pdfDoc.getPage(num);
+      const body = document.querySelector('.modal-body');
+      const base = page.getViewport({ scale: 1 }).width;
+      const scale = Math.max((body.clientWidth - 48) / base, 0.6);
+      const viewport = page.getViewport({ scale });
+      pdfCanvas.width = Math.floor(viewport.width);
+      pdfCanvas.height = Math.floor(viewport.height);
+      pdfCanvas.style.width = pdfCanvas.width + 'px';
+      pdfCanvas.style.height = pdfCanvas.height + 'px';
+      await page.render({ canvasContext: pdfCtx, viewport }).promise;
+      pdfPageLabel.textContent = num + ' / ' + pdfDoc.numPages;
+      pdfPrev.disabled = num <= 1;
+      pdfNext.disabled = num >= pdfDoc.numPages;
+    }
 
     function openModal(pdf, name, sub) {
       modalTitle.textContent = name;
       modalSub.textContent = sub;
       modalDl.href = pdf;
-      modalFrame.src = pdf + '?v=' + Date.now();
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
+      pdfCanvas.style.display = 'none';
+      modalFrame.style.display = 'none';
+      modalFrame.src = '';
+      if (typeof pdfjsLib === 'undefined') {
+        modalFrame.style.display = 'block';
+        modalFrame.src = pdf + '?v=' + Date.now();
+        return;
+      }
+      pdfStatus.style.display = 'block';
+      pdfStatus.textContent = 'Chargement…';
+      pdfToolbar.style.display = 'none';
+      pdfDoc = null; pdfPage = 1;
+      pdfjsLib.getDocument(pdf).promise.then(doc => {
+        if (!modal.classList.contains('open')) return;
+        pdfDoc = doc;
+        pdfStatus.style.display = 'none';
+        pdfToolbar.style.display = 'flex';
+        pdfCanvas.style.display = 'block';
+        renderPdfPage(1);
+      }).catch(() => {
+        if (!modal.classList.contains('open')) return;
+        pdfStatus.style.display = 'none';
+        modalFrame.style.display = 'block';
+        modalFrame.src = pdf + '?v=' + Date.now();
+      });
     }
     function closeModal() {
       modal.classList.remove('open');
       modalFrame.src = '';
       document.body.style.overflow = '';
+      pdfDoc = null;
     }
     document.querySelectorAll('.dl-card.viewable').forEach(card => {
       card.addEventListener('click', () => {
         openModal(card.dataset.pdf, card.dataset.name, card.dataset.sub);
       });
     });
+    pdfPrev.addEventListener('click', () => { if (pdfDoc && pdfPage > 1) renderPdfPage(--pdfPage); });
+    pdfNext.addEventListener('click', () => { if (pdfDoc && pdfPage < pdfDoc.numPages) renderPdfPage(++pdfPage); });
     modalClose.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });

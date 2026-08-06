@@ -20,6 +20,8 @@ SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")
 
+SITE_URL = os.getenv("SITE_URL", "https://portfolio-e59o.vercel.app")
+
 EMAIL_RE = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]{2,}$")
 
 MAX_NAME = 100
@@ -53,27 +55,30 @@ def _render_html_email(name, email, subject, message):
     e_subject = html_mod.escape(subject)
     e_message = html_mod.escape(message).replace("\n", "<br>")
     return (
-        '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f6f8fb;font-family:Inter,Arial,sans-serif;">'
+        '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f0fdf4;font-family:Arial,Helvetica,sans-serif;">'
         '<div style="max-width:600px;margin:0 auto;padding:32px 16px;">'
-        '<div style="background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;">'
-        '<div style="background:linear-gradient(135deg,#0f766e,#115e59);padding:24px 28px;">'
-        '<div style="font-size:20px;font-weight:800;color:#ffffff;">Nouveau message</div>'
-        '<div style="font-size:13px;color:#e6f2f1;margin-top:4px;">Formulaire de contact — portfolio</div>'
-        '</div>'
+        '<div style="background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #bbf7d0;">'
+        f'<table cellpadding="0" cellspacing="0" border="0" style="width:100%;background:linear-gradient(135deg,#16a34a,#15803d);">'
+        f'<tr><td style="padding:22px 0 22px 28px;vertical-align:middle;">'
+        f'<img src="{SITE_URL}/icons/ja.svg" alt="" width="48" height="48" style="border-radius:10px;display:block;">'
+        f'</td>'
+        f'<td style="padding:22px 28px 22px 14px;vertical-align:middle;">'
+        f'<div style="font-size:19px;font-weight:800;color:#ffffff;">Nouveau message</div>'
+        f'<div style="font-size:13px;color:#dcfce7;margin-top:3px;">Formulaire de contact — portfolio</div>'
+        f'</td></tr></table>'
         '<div style="padding:28px;">'
-        f'<table cellpadding="0" cellspacing="0" border="0" style="width:100%;font-size:14px;color:#334155;">'
-        f'<tr><td style="padding:6px 0;color:#5b6b7f;width:96px;vertical-align:top;">Nom</td>'
-        f'<td style="padding:6px 0;font-weight:600;color:#0f172a;">{e_name}</td></tr>'
-        f'<tr><td style="padding:6px 0;color:#5b6b7f;width:96px;vertical-align:top;">Email</td>'
-        f'<td style="padding:6px 0;"><a href="mailto:{e_email}" style="color:#0f766e;text-decoration:none;font-weight:600;">{e_email}</a></td></tr>'
-        f'<tr><td style="padding:6px 0;color:#5b6b7f;width:96px;vertical-align:top;">Sujet</td>'
-        f'<td style="padding:6px 0;font-weight:600;color:#0f172a;">{e_subject}</td></tr>'
+        f'<table cellpadding="0" cellspacing="0" border="0" style="width:100%;font-size:14px;color:#14532d;">'
+        f'<tr><td style="padding:7px 0;color:#15803d;width:96px;vertical-align:top;font-weight:700;">Nom</td>'
+        f'<td style="padding:7px 0;font-weight:600;color:#14532d;">{e_name}</td></tr>'
+        f'<tr><td style="padding:7px 0;color:#15803d;width:96px;vertical-align:top;font-weight:700;">Email</td>'
+        f'<td style="padding:7px 0;"><a href="mailto:{e_email}" style="color:#15803d;text-decoration:none;font-weight:600;">{e_email}</a></td></tr>'
+        f'<tr><td style="padding:7px 0;color:#15803d;width:96px;vertical-align:top;font-weight:700;">Sujet</td>'
+        f'<td style="padding:7px 0;font-weight:600;color:#14532d;">{e_subject}</td></tr>'
         '</table>'
-        f'<div style="margin-top:16px;padding:16px 18px;background:#f0f4f9;border-left:3px solid #0f766e;border-radius:8px;font-size:14px;color:#334155;line-height:1.6;">{e_message}</div>'
+        f'<div style="margin-top:16px;padding:16px 18px;background:#f0fdf4;border-left:3px solid #16a34a;border-radius:8px;font-size:14px;color:#166534;line-height:1.6;">{e_message}</div>'
         '</div>'
-        '<div style="background:#f0f4f9;padding:14px 28px;border-top:1px solid #e2e8f0;font-size:12px;color:#5b6b7f;">'
-        'Abessolo Ovono Jean Freddy — Développeur Backend Django · '
-        '<a href="https://portfolio-e59o.vercel.app" style="color:#0f766e;text-decoration:none;">portfolio-e59o.vercel.app</a>'
+        f'<div style="background:#f0fdf4;padding:14px 28px;border-top:1px solid #bbf7d0;font-size:12px;color:#166534;">'
+        f'Abessolo Ovono Jean Freddy — Développeur Backend Django · <a href="{SITE_URL}" style="color:#15803d;text-decoration:none;">portfolio-e59o.vercel.app</a>'
         '</div>'
         '</div>'
         '</div>'
