@@ -1,7 +1,10 @@
 {
   "functions": {
-    "api/contact.py": {
+    "api/index.py": {
       "maxDuration": 10
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/api/contact", "destination": "/api" }
+  ]
 }
