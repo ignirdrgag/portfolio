@@ -1,9 +1,12 @@
 import json
+import mimetypes
 import os
 import re
 import smtplib
 from email.message import EmailMessage
 from http.server import BaseHTTPRequestHandler
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 OWNER_EMAIL = os.getenv("OWNER_EMAIL", "abessolofreddy2005@gmail.com")
 SMTP_HOST = os.getenv("SMTP_HOST", "smtp.gmail.com")
@@ -42,7 +45,7 @@ def _send_email(name, email, subject, message):
 
 class handler(BaseHTTPRequestHandler):
 
-    server_version = "PortfolioAPI"
+    server_version = "Portfolio"
 
     def _send_json(self, status, payload):
         body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
@@ -52,8 +55,33 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _serve_static(self, raw_path):
+        path = (raw_path or "/").split("?", 1)[0].split("#", 1)[0]
+        if path in ("", "/"):
+            path = "/index.html"
+        rel = path.lstrip("/")
+        if not rel or ".." in rel or "\x00" in rel:
+            return self._send_json(404, {"ok": False, "error": "Introuvable."})
+        filepath = os.path.join(BASE_DIR, rel)
+        if not os.path.isfile(filepath):
+            return self._send_json(404, {"ok": False, "error": "Introuvable."})
+        try:
+            with open(filepath, "rb") as f:
+                body = f.read()
+        except Exception:
+            return self._send_json(500, {"ok": False, "error": "Erreur de lecture."})
+        ctype, _ = mimetypes.guess_type(filepath)
+        self.send_response(200)
+        self.send_header("Content-Type", ctype or "application/octet-stream")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def do_GET(self):
-        self._send_json(405, {"ok": False, "error": "Méthode non autorisée."})
+        self._serve_static(self.path)
+
+    def do_HEAD(self):
+        self.do_GET()
 
     def do_POST(self):
         if not SMTP_USER or not SMTP_PASSWORD:
