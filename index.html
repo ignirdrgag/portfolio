@@ -405,10 +405,10 @@
     .dl-card.viewable { cursor: zoom-in; }
     .dl-card .d-icon {
       width: 48px; height: 48px; flex-shrink: 0; border-radius: 12px;
-      background: var(--accent-soft); color: var(--accent);
+      background: linear-gradient(135deg, var(--accent), #14b8a6); color: #fff;
       display: grid; place-items: center; font-size: 21px;
     }
-    .dl-card.cv .d-icon { background: linear-gradient(135deg, var(--accent), #14b8a6); color: #fff; }
+    .dl-card .d-icon img { width: 26px; height: 26px; filter: brightness(0) invert(1); }
     .dl-card h3 { font-size: 15.5px; letter-spacing: -.2px; margin-bottom: 2px; }
     .dl-card .d-sub { color: var(--muted); font-size: 12.5px; }
     .dl-card .d-arrow { margin-left: auto; color: var(--accent); font-weight: 800; font-size: 17px; transition: transform .25s; }
@@ -894,32 +894,32 @@
         </div>
         <div class="dl-grid stagger">
           <button class="dl-card cv viewable" type="button" data-pdf="Abessolo_Ovono_Jean_Freddy_CV.pdf" data-name="Mon CV" data-sub="PDF · 1 page A4">
-            <span class="d-icon">📄</span>
+            <span class="d-icon"><img src="icons/document.svg" alt=""></span>
             <div><h3>Mon CV</h3><span class="d-sub">PDF · 1 page A4</span></div>
             <span class="d-arrow">⤢</span>
           </button>
           <button class="dl-card viewable" type="button" data-pdf="certificate.pdf" data-name="Certificate" data-sub="PDF · Certification">
-            <span class="d-icon">🏅</span>
+            <span class="d-icon"><img src="icons/award.svg" alt=""></span>
             <div><h3>Certificate</h3><span class="d-sub">PDF · Certification</span></div>
             <span class="d-arrow">⤢</span>
           </button>
           <button class="dl-card viewable" type="button" data-pdf="certificate_python.pdf" data-name="Certificate Python" data-sub="PDF · Certification Python">
-            <span class="d-icon">🐍</span>
+            <span class="d-icon"><img src="icons/python.svg" alt=""></span>
             <div><h3>Certificate Python</h3><span class="d-sub">PDF · Certification Python</span></div>
             <span class="d-arrow">⤢</span>
           </button>
           <button class="dl-card viewable" type="button" data-pdf="certificate_Pandas.pdf" data-name="Certificate Pandas" data-sub="PDF · Certification Pandas">
-            <span class="d-icon">🐼</span>
+            <span class="d-icon"><img src="icons/grid.svg" alt=""></span>
             <div><h3>Certificate Pandas</h3><span class="d-sub">PDF · Certification Pandas</span></div>
             <span class="d-arrow">⤢</span>
           </button>
           <button class="dl-card viewable" type="button" data-pdf="skiti_learn.pdf" data-name="Skiti Learn" data-sub="PDF · Formation Skiti Learn">
-            <span class="d-icon">📚</span>
+            <span class="d-icon"><img src="icons/book.svg" alt=""></span>
             <div><h3>Skiti Learn</h3><span class="d-sub">PDF · Formation Skiti Learn</span></div>
             <span class="d-arrow">⤢</span>
           </button>
           <a class="dl-card" href="https://github.com/ignirdrgag" target="_blank" rel="noopener">
-            <span class="d-icon">🐙</span>
+            <span class="d-icon"><img src="icons/github.svg" alt=""></span>
             <div><h3>GitHub</h3><span class="d-sub">Mes projets open source</span></div>
             <span class="d-arrow">↗</span>
           </a>
