@@ -1,0 +1,23 @@
+{
+  "supervision-ia": {
+    "src": "assets/projects/supervision-ia.jpg",
+    "lqip": "assets/projects/supervision-ia-lqip.jpg",
+    "alt": "Console de supervision : analyse IA d'un incident et recommandations operationnelles",
+    "w": 1000,
+    "h": 503
+  },
+  "salon-mobilier": {
+    "src": "assets/projects/salon-mobilier.jpg",
+    "lqip": "assets/projects/salon-mobilier-lqip.jpg",
+    "alt": "Tableau de bord Salon Mobilier : chiffre d'affaires, commandes en cours et stock faible",
+    "w": 1000,
+    "h": 562
+  },
+  "gestion-vente": {
+    "src": "assets/projects/gestion-vente.jpg",
+    "lqip": "assets/projects/gestion-vente-lqip.jpg",
+    "alt": "Tableau de bord commercial du module de vente : ventes du jour, creances et alertes de stock",
+    "w": 1000,
+    "h": 659
+  }
+}

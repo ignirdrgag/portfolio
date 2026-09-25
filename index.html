@@ -7,28 +7,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Abessolo Ovono Jean Freddy | Développeur Backend Django</title>
-  <meta name="description" content="Portfolio de Jean Freddy Abessolo Ovono — Développeur backend Python/Django, API REST et cloud.">
+  <meta name="description" content="Jean Freddy Abessolo Ovono — développeur backend Python/Django, API REST, Java/Spring Boot et cloud. Supervision, gestion commerciale et sécurité.">
+  <!-- Favicons / identité visuelle -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="msapplication-TileColor" content="#0f766e">
   <link rel="canonical" href="https://portfolio-e59o.vercel.app/">
   <meta name="theme-color" content="#0f766e">
   <meta name="author" content="Abessolo Ovono Jean Freddy">
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Abessolo Ovono Jean Freddy | Développeur Backend Django">
-  <meta property="og:description" content="Portfolio de Jean Freddy Abessolo Ovono — Développeur backend Python/Django, API REST et cloud.">
+  <meta property="og:description" content="Développeur backend Python/Django, API REST, Java/Spring Boot. Supervision, gestion commerciale et sécurité.">
   <meta property="og:url" content="https://portfolio-e59o.vercel.app/">
-  <meta property="og:image" content="https://portfolio-e59o.vercel.app/photo.jpg">
+  <meta property="og:image" content="https://portfolio-e59o.vercel.app/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Abessolo Ovono Jean Freddy — Développeur Backend Django / API REST">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Portfolio Jean Freddy Abessolo Ovono">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Abessolo Ovono Jean Freddy | Développeur Backend Django">
-  <meta name="twitter:description" content="Portfolio de Jean Freddy Abessolo Ovono — Développeur backend Python/Django, API REST et cloud.">
-  <meta name="twitter:image" content="https://portfolio-e59o.vercel.app/photo.jpg">
+  <meta name="twitter:description" content="Développeur backend Python/Django, API REST, Java/Spring Boot. Supervision, gestion commerciale et sécurité.">
+  <meta name="twitter:image" content="https://portfolio-e59o.vercel.app/og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* ============ RESET & TOKENS ============ */
+    /* Les blocs .reveal-left / .reveal-right entrent en decalant sur le cote :
+       avant leur animation ils debordent donc horizontalement. On coupe ce
+       debordement avec clip (et non hidden) pour ne pas casser le
+       position:sticky du sommaire du parcours. */
+    /* Les blocs .reveal-left / .reveal-right entrent en decalant sur le cote :
+       avant leur animation ils debordent donc horizontalement et creent un
+       defilement lateral. On borne chaque section avec clip (et non hidden) :
+       clip ne cree pas de conteneur de defilement, donc le position:sticky
+       du sommaire du parcours continue de fonctionner. */
+    section, footer { overflow-x: clip; }
+
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --bg: #f6f8fb;
@@ -92,6 +114,20 @@
     ul { list-style: none; }
     .container { width: min(var(--container), calc(100% - 40px)); margin: 0 auto; }
 
+    /* ============ SYSTÈME D'ICONES (sprite inline) ============ */
+    .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .ic {
+      display: inline-block; vertical-align: -.18em; flex-shrink: 0;
+      width: 1.15em; height: 1.15em;
+      fill: none; stroke: currentColor; stroke-width: 1.75;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .ic.xs { width: .95em; height: .95em; }
+    .ic.sm { width: 1.35em; height: 1.35em; }
+    .ic.lg { width: 1.7em; height: 1.7em; stroke-width: 1.6; }
+    .ic.xl { width: 2.2em; height: 2.2em; stroke-width: 1.5; }
+
+
     /* ============ SCROLL PROGRESS ============ */
     #scrollbar { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 80;
       background: linear-gradient(90deg, var(--accent), #14b8a6, var(--blue));
@@ -108,27 +144,41 @@
     }
     .topbar.scrolled { border-color: var(--line); box-shadow: var(--shadow-sm); }
     .nav { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -.2px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.2px; }
     .brand-mark {
-      width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+      width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0;
       background: linear-gradient(135deg, var(--accent), #14b8a6);
       color: #fff; display: grid; place-items: center;
-      font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 800;
+      font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -.3px;
       box-shadow: 0 6px 16px rgba(15, 118, 110, .35);
     }
-    .nav-links { display: flex; gap: 26px; }
+    .brand-txt { display: grid; line-height: 1.25; }
+    .brand-txt b { font-size: 14.5px; letter-spacing: -.2px; }
+    .brand-txt i {
+      font-style: normal; font-size: 11.5px; font-weight: 700;
+      color: var(--accent); letter-spacing: .04em; text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 6px; }
     .nav-links a {
-      color: var(--ink-2); font-size: 14.5px; font-weight: 600;
-      position: relative; padding: 4px 0;
+      display: inline-flex; align-items: center; gap: 7px;
+      color: var(--ink-2); font-size: 14px; font-weight: 600;
+      position: relative; padding: 8px 13px; border-radius: 9px;
+      transition: color .2s, background .2s;
     }
-    .nav-links a::after {
-      content: ''; position: absolute; left: 0; bottom: 0;
-      width: 0; height: 2px; border-radius: 2px;
-      background: var(--accent); transition: width .3s ease;
+    .nav-links a .ic { opacity: .65; transition: opacity .2s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a:hover .ic { opacity: 1; }
+    /* Section courante : le visiteur sait toujours où il se trouve */
+    .nav-links a.active { color: #fff; background: var(--accent); box-shadow: 0 8px 20px rgba(15, 118, 110, .28); }
+    html[data-theme="dark"] .nav-links a.active { color: #06211e; }
+    .nav-links a.active .ic { opacity: 1; }
+    /* Barre de progression du parcours de lecture */
+    .nav-rail { height: 2px; background: transparent; }
+    .nav-rail i {
+      display: block; height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--accent), #14b8a6, var(--blue));
+      transition: width .18s linear;
     }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links .menu-cv { display: none; }
     .nav-cta { display: flex; gap: 10px; align-items: center; }
     .icon-btn {
       width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong);
@@ -136,6 +186,7 @@
       display: grid; place-items: center; font-size: 17px;
       transition: transform .2s, box-shadow .2s, border-color .2s, color .2s;
     }
+    .icon-btn .ic { width: 18px; height: 18px; }
     .icon-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); color: var(--accent); border-color: var(--accent); }
     .menu-btn { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 8px; }
     .menu-btn span { width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform .3s, opacity .3s; }
@@ -206,25 +257,7 @@
     @keyframes wiggle { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(12deg); } 60% { transform: rotate(-8deg); } }
     .hero .lead { max-width: 620px; color: var(--ink-2); font-size: clamp(16px, 1.8vw, 19px); margin-bottom: 16px; }
     .hero .lead strong { color: var(--ink); font-weight: 700; }
-    .type-line {
-      display: flex; align-items: center; gap: 2px;
-      font-family: 'JetBrains Mono', monospace; font-size: 15px;
-      color: var(--accent); margin-bottom: 30px; min-height: 28px;
-    }
-    .type-line .prompt { color: var(--muted); }
-    .type-line .caret { display: inline-block; width: 9px; height: 17px; background: var(--accent); animation: blink 1s step-end infinite; }
-    @keyframes blink { 50% { opacity: 0; } }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    .hero-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 36px; max-width: 620px; }
-    .metric {
-      background: var(--surface); border: 1px solid var(--line);
-      border-radius: var(--radius-sm); padding: 14px 16px;
-      transition: transform .2s, box-shadow .2s, border-color .2s;
-    }
-    .metric:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); border-color: var(--accent); }
-    .metric strong { display: block; font-family: 'Sora', sans-serif; font-size: 24px; color: var(--accent); line-height: 1.15; }
-    .metric span { color: var(--muted); font-size: 12.5px; font-weight: 600; }
-
     /* Portrait card */
     .portrait-card {
       position: relative; background: var(--surface); border: 1px solid var(--line);
@@ -562,373 +595,970 @@
     .stagger.visible > * { animation: rise .7s forwards cubic-bezier(.16, 1, .3, 1); }
     @keyframes rise { to { opacity: 1; transform: translateY(0); } }
 
+    /* ============ IDENTITÉ : carte d'identité (hero) ============ */
+    .hero-name {
+      font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .id-card {
+      margin-top: 30px; max-width: 620px;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .id-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 13px 18px; border-bottom: 1px solid var(--line);
+      transition: background .2s;
+    }
+    .id-row:last-child { border-bottom: 0; }
+    .id-row:hover { background: var(--surface-soft); }
+    .id-ic {
+      width: 38px; height: 38px; flex-shrink: 0; border-radius: 10px;
+      background: var(--accent-soft); color: var(--accent);
+      display: grid; place-items: center;
+    }
+    .id-row > div { display: grid; gap: 1px; min-width: 0; }
+    .id-row b { font-size: 14.5px; letter-spacing: -.1px; }
+    .id-row i { font-style: normal; font-size: 12.5px; color: var(--muted); }
+    .btn.block { display: flex; width: 100%; }
+
+    /* ============ PARCOURS EN BREF (raccourcis) ============ */
+    .brief-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .brief-card {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 24px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .brief-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--accent); }
+    .brief-card .b-ic {
+      width: 46px; height: 46px; flex-shrink: 0; border-radius: 12px;
+      background: var(--accent-soft); color: var(--accent);
+      display: grid; place-items: center;
+    }
+    .brief-card h3 { font-family: 'Sora', sans-serif; font-size: 17.5px; letter-spacing: -.3px; margin-bottom: 7px; }
+    .brief-card p { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
+    .brief-card .b-go {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--accent); font-weight: 700; font-size: 13.5px;
+    }
+    .brief-card .b-go .ic { transition: transform .25s; }
+    .brief-card:hover .b-go .ic { transform: translateX(4px); }
+
+    /* ============ ÉTAPE SUIVANTE (où aller ensuite) ============ */
+    .next-step {
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+      margin-top: 34px; padding: 16px 22px;
+      background: var(--surface); border: 1px dashed var(--line-strong);
+      border-radius: var(--radius); color: var(--ink);
+      transition: border-color .25s, background .25s, transform .25s, box-shadow .25s;
+    }
+    .next-step:hover {
+      border-color: var(--accent); border-style: solid; background: var(--accent-soft);
+      transform: translateY(-2px); box-shadow: var(--shadow-sm);
+    }
+    .next-step .ns-txt { display: grid; gap: 2px; font-weight: 700; font-size: 15px; }
+    .next-step .ns-txt i {
+      font-style: normal; font-size: 11.5px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .12em; color: var(--accent);
+    }
+    .next-step .ns-go {
+      width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%;
+      background: var(--accent); color: #fff; display: grid; place-items: center;
+      transition: transform .25s;
+    }
+    .next-step:hover .ns-go { transform: translateX(4px); }
+
+    /* ============ PROJETS : capture + solution + lien ============ */
+    .filter-btn { display: inline-flex; align-items: center; gap: 8px; }
+    .filter-btn .f-n {
+      display: inline-grid; place-items: center; min-width: 20px; height: 20px;
+      padding: 0 5px; border-radius: 999px; font-size: 11px; font-weight: 800;
+      background: var(--surface-soft); color: var(--muted);
+    }
+    .filter-btn.active .f-n { background: rgba(255, 255, 255, .22); color: #fff; }
+    html[data-theme="dark"] .filter-btn.active .f-n { color: #06211e; }
+
+    .project { padding: 0; overflow: hidden; }
+    .project:hover { transform: translateY(-4px); }
+    .project.hidden { display: none; }
+    .project.filter-in { animation: filterIn .5s cubic-bezier(.16, 1, .3, 1) both; }
+    @keyframes filterIn { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    /* Cadre « fenêtre » de la capture */
+    .shot {
+      position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+      background: var(--surface-soft); border-bottom: 1px solid var(--line);
+    }
+    .shot-bar {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+      display: flex; align-items: center; gap: 6px;
+      height: 30px; padding: 0 12px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, .82), rgba(15, 23, 42, .5));
+    }
+    .shot-bar i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, .38); }
+    .shot-bar i:first-child { background: #f87171; }
+    .shot-bar i:nth-child(2) { background: #fbbf24; }
+    .shot-bar i:nth-child(3) { background: #4ade80; }
+    .shot-bar span {
+      margin-left: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+      color: rgba(255, 255, 255, .78); letter-spacing: .02em;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .shot-lqip, .shot-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .shot-lqip { filter: blur(14px) saturate(1.1); transform: scale(1.08); }
+    .shot-img { opacity: 0; transition: opacity .5s ease; }
+    .shot.ready .shot-img { opacity: 1; }
+    .shot-tag {
+      position: absolute; right: 10px; bottom: 10px; z-index: 2;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px; border-radius: 999px;
+      background: rgba(15, 23, 42, .78); color: #fff;
+      font-size: 11.5px; font-weight: 700; backdrop-filter: blur(6px);
+      opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s;
+    }
+    .project:hover .shot-tag { opacity: 1; transform: translateY(0); }
+
+    .p-body { display: flex; flex-direction: column; flex: 1; padding: 24px 26px 26px; }
+    .p-top { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+    .p-top .p-icon {
+      width: 46px; height: 46px; flex-shrink: 0; border-radius: 12px;
+      background: var(--accent-soft); color: var(--accent);
+      display: grid; place-items: center;
+    }
+    .p-top .p-icon.alt { background: var(--blue-soft); color: var(--blue); }
+    .p-top .p-icon.gold { background: rgba(217, 119, 6, .13); color: var(--gold); }
+    .p-top .p-icon.violet { background: rgba(162, 28, 175, .1); color: #a21caf; }
+    html[data-theme="dark"] .p-top .p-icon.violet { color: #d8b4fe; }
+    .p-top h3 { font-family: 'Sora', sans-serif; font-size: 17.5px; letter-spacing: -.3px; margin-bottom: 5px; line-height: 1.28; }
+    .p-meta { display: flex; align-items: center; gap: 6px; color: var(--accent); font-size: 12.5px; font-weight: 700; }
+    .p-solution { color: var(--ink-2); font-size: 14.5px; margin-bottom: 14px; }
+    .p-solution b { color: var(--ink); font-weight: 800; }
+    .p-points { display: grid; gap: 8px; margin-bottom: 18px; }
+    .p-points li { display: flex; gap: 9px; align-items: flex-start; color: var(--muted); font-size: 13.5px; }
+    .p-points .ic { color: var(--accent); margin-top: 3px; }
+    .p-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 14px; flex-wrap: wrap; margin-top: auto; padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+    .p-foot .stack { margin-top: 0; }
+    .p-note {
+      display: inline-flex; align-items: center; gap: 7px;
+      color: var(--muted); font-size: 12.5px; font-weight: 700;
+      padding: 0 12px; min-height: 36px; border-radius: 999px;
+      background: var(--surface-soft); border: 1px solid var(--line);
+    }
+
+    /* ============ COMPÉTENCES : échelle de niveaux ============ */
+    .lv-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 22px; color: var(--muted); font-size: 13px; }
+    .lv-legend .lv { display: inline-flex; align-items: center; gap: 8px; }
+    .lv-legend .lv b { color: var(--ink-2); font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; }
+    .lv-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    .lv-dot.l1 { background: #cbd5e1; }
+    .lv-dot.l2 { background: #93c5fd; }
+    .lv-dot.l3 { background: #2dd4bf; }
+    .lv-dot.l4 { background: #0f766e; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .skill-group.wide { grid-column: 1 / -1; }
+    .skill-row .sr-top i {
+      font-family: inherit; font-size: 11px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .06em;
+      padding: 2px 8px; border-radius: 999px;
+      background: var(--surface-soft); color: var(--muted);
+    }
+    .skill-row .sr-top i[data-lv="lv2"] { background: var(--blue-soft); color: var(--blue); }
+    .skill-row .sr-top i[data-lv="lv3"] { background: var(--accent-soft); color: var(--accent-strong); }
+    .skill-row .sr-top i[data-lv="lv4"] { background: var(--accent); color: #fff; }
+    html[data-theme="dark"] .skill-row .sr-top i[data-lv="lv4"] { color: #06211e; }
+    .lang-row { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+    .lang-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+    .lang-top b { font-size: 14px; font-weight: 700; color: var(--ink-2); }
+    .lang-top i { font-style: normal; font-size: 12.5px; font-weight: 800; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+    .skill-tag { gap: 6px; }
+
+    /* ============ PARCOURS : sommaire + sous-blocs ============ */
+    .sub-nav {
+      position: sticky; top: 72px; z-index: 30;
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 34px;
+      padding: 8px; border-radius: 999px;
+      background: var(--topbar-bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+      width: fit-content;
+    }
+    .sub-nav a {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 17px; border-radius: 999px;
+      color: var(--ink-2); font-size: 14px; font-weight: 700;
+      transition: background .2s, color .2s;
+    }
+    .sub-nav a b {
+      font-size: 11px; font-weight: 800; min-width: 19px; height: 19px;
+      display: inline-grid; place-items: center; border-radius: 999px;
+      background: var(--surface-soft); color: var(--muted);
+    }
+    .sub-nav a:hover { background: var(--surface-soft); color: var(--accent); }
+    .sub-nav a.on { background: var(--accent); color: #fff; }
+    html[data-theme="dark"] .sub-nav a.on { color: #06211e; }
+    .sub-nav a.on b { background: rgba(255, 255, 255, .22); color: inherit; }
+
+    .sub-block { scroll-margin-top: 150px; margin-bottom: 54px; }
+    .sub-block:last-of-type { margin-bottom: 0; }
+    .sub-head {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--line);
+    }
+    .sub-ic {
+      width: 50px; height: 50px; flex-shrink: 0; border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), #14b8a6); color: #fff;
+      display: grid; place-items: center;
+    }
+    .sub-head h3 { font-family: 'Sora', sans-serif; font-size: 22px; letter-spacing: -.5px; margin-bottom: 3px; }
+    .sub-head p { color: var(--muted); font-size: 14.5px; }
+
+    /* ============ Icônes : portraits, documents, fenêtre ============ */
+    .contact-list .ic-box {
+      width: 28px; height: 28px; flex-shrink: 0; border-radius: 8px;
+      background: var(--accent-soft); color: var(--accent);
+      display: grid; place-items: center;
+    }
+    .dl-card .d-icon .ic { width: 24px; height: 24px; }
+    .dl-card .d-arrow { display: grid; place-items: center; color: var(--accent); transition: transform .25s; }
+    .modal-close .ic, #toTop .ic, .pdf-toolbar button .ic { width: 18px; height: 18px; }
+    .info-item .ii .ic { color: #fff; }
+
+    /* ============ Projets sans capture : on garde la carte lisible ============ */
+    .project .p-body:first-child { padding-top: 26px; }
+    .skill-tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .lang-row-item .track { margin-top: 0; }
+
+    /* ============ THÈME SOMBRE : contraste sur les aplats d'accent ============
+       En thème sombre, --accent est une couleur claire : le texte blanc posé
+       dessus devient illisible. On bascule donc sur l'encre sombre. */
+    html[data-theme="dark"] .next-step .ns-go { color: #06211e; }
+    html[data-theme="dark"] .sub-ic {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: #06211e;
+    }
+    html[data-theme="dark"] .lv-dot.l1 { background: #475569; }
+    html[data-theme="dark"] .lv-dot.l2 { background: #3b82f6; }
+    html[data-theme="dark"] .lv-dot.l4 { background: var(--accent); }
+    html[data-theme="dark"] .shot-img { filter: brightness(.92) saturate(1.05); }
+    html[data-theme="dark"] .shot.ready .shot-img { filter: none; }
+    html[data-theme="dark"] .shot.ready .shot-img { filter: brightness(.9); }
+
     /* ============ RESPONSIVE ============ */
     @media (max-width: 960px) {
+      /* La nav devient un menu déroulant : les 5 étapes restent dans le même ordre. */
       .nav-links {
         display: none; position: absolute; top: 100%; left: 0; right: 0;
         background: var(--surface); flex-direction: column; gap: 4px;
         padding: 16px 20px 20px; border-bottom: 1px solid var(--line); box-shadow: var(--shadow-md);
       }
       .nav-links.open { display: flex; }
-      .nav-links a { padding: 10px 4px; }
-      .nav-links .menu-cv { display: block; }
+      .nav-links a { padding: 11px 12px; }
+      .nav-links a.active { color: var(--accent); background: var(--accent-soft); box-shadow: none; }
+      html[data-theme="dark"] .nav-links a.active { color: var(--accent); }
       .menu-btn { display: flex; }
+
       .hero-grid { grid-template-columns: 1fr; gap: 44px; }
       .portrait-card { max-width: 420px; }
+      .brief-grid { grid-template-columns: 1fr; gap: 14px; }
+      .brief-card { padding: 20px; }
+      .skills-grid { grid-template-columns: 1fr; }
       .grid-4, .dl-grid { grid-template-columns: 1fr 1fr; }
       .grid-3 { grid-template-columns: 1fr 1fr; }
-      .skills-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
       .cta { grid-template-columns: 1fr; padding: 38px; }
       .cta .actions { justify-content: flex-start; }
       .job { grid-template-columns: 1fr; gap: 8px; }
+      .sub-nav { top: 66px; }
     }
+
+    @media (max-width: 720px) {
+      /* Les langues passent sur une colonne pour rester lisibles. */
+      .lang-row { grid-template-columns: 1fr; gap: 14px; }
+      .id-card { max-width: none; }
+      .dl-grid { grid-template-columns: 1fr; }
+      .sub-head { align-items: flex-start; }
+      .sub-ic { width: 44px; height: 44px; }
+      .sub-head h3 { font-size: 20px; }
+      .p-body { padding: 20px; }
+    }
+
     @media (max-width: 560px) {
       .container { width: calc(100% - 28px); }
-      .nav { gap: 12px; }
+      .nav { gap: 10px; }
+      .brand-txt { display: none; }
       section { padding: 64px 0; }
       .hero { padding: 52px 0 44px; }
-      .hero-meta { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .grid-2, .grid-3, .grid-4, .dl-grid { grid-template-columns: 1fr; }
       .skills-wrap { padding: 24px; }
       .cta { padding: 30px; }
       .footer-in { justify-content: center; text-align: center; }
+      .id-row { padding: 12px 14px; }
+      .id-ic { width: 34px; height: 34px; }
+      .next-step { padding: 14px 16px; }
+      .lv-legend { gap: 8px 14px; font-size: 12px; }
+      .sub-nav { width: 100%; border-radius: var(--radius); }
+      .sub-nav a { padding: 8px 13px; font-size: 13px; }
     }
+
     @media (max-width: 430px) {
-      .nav-cta .btn.sm { display: none; }
+      /* Le nom complet passe sous la marque : on garde le monogramme + le CV. */
+      .nav-cta { gap: 6px; }
+      .shot { aspect-ratio: 16 / 10; }
     }
+
     @media (prefers-reduced-motion: reduce) {
-      .reveal, .reveal-left, .reveal-right, .stagger > *, .fill { opacity: 1; transform: none; transition: none; }
-      .type-line .caret { animation: none; }
+      .reveal, .reveal-left, .reveal-right, .stagger > *, .fill {
+        opacity: 1; transform: none; transition: none;
+      }
+      .project.filter-in { animation: none; }
+      .next-step, .brief-card, .project, .shot-img, .ns-go, .sub-nav a { transition: none; }
     }
   </style>
 </head>
 <body>
+  <!-- ===== SPRITE D'ICONES (style unique) ===== -->
+<svg xmlns="http://www.w3.org/2000/svg" class="sprite" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.2a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+<symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77a5.07 5.07 0 0 0-.09-3.77s-1.18-.35-3.82 1.48a13.38 13.38 0 0 0-7 0C6.58.65 5.4 1 5.4 1a5.07 5.07 0 0 0-.09 3.77A5.44 5.44 0 0 0 4 5.79c0 5.45 3.3 6.64 6.44 7A3.37 3.37 0 0 0 9.5 16.13V22"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+<symbol id="i-badge" viewBox="0 0 24 24"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="m8.2 13.9-1.2 9.1 5-3 5 3-1.2-9.1"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+<symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></symbol>
+<symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2.5 9.5 4.5-9.5 4.5L2.5 7z"/><path d="m2.5 16.5 9.5 4.5 9.5-4.5"/></symbol>
+<symbol id="i-terminal" viewBox="0 0 24 24"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></symbol>
+<symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+<symbol id="i-cap" viewBox="0 0 24 24"><path d="m2 9 10-4 10 4-10 4z"/><path d="M6.5 11v5.2c0 1.6 2.5 2.8 5.5 2.8s5.5-1.2 5.5-2.8V11"/><path d="M21.5 9.8v4.4"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2"/><path d="M12 20.5v2"/><path d="m4.2 4.2 1.4 1.4"/><path d="m18.4 18.4 1.4 1.4"/><path d="M1.5 12h2"/><path d="M20.5 12h2"/><path d="m4.2 19.8 1.4-1.4"/><path d="m18.4 5.6 1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+<symbol id="i-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><path d="m23 6-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l3.5 2"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1z"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5a15 15 0 0 1 4 9.5 15 15 0 0 1-4 9.5 15 15 0 0 1-4-9.5 15 15 0 0 1 4-9.5z"/></symbol>
+<symbol id="i-mobile" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 18h.01"/></symbol>
+<symbol id="i-cpu" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 1.5V4"/><path d="M15 1.5V4"/><path d="M9 20v2.5"/><path d="M15 20v2.5"/><path d="M20 9h2.5"/><path d="M20 14h2.5"/><path d="M1.5 9H4"/><path d="M1.5 14H4"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2.5 2 5.2 5.2 2-5.2 2-2 5.2-2-5.2-5.2-2 5.2-2z"/><path d="m19 14.5.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></symbol>
+<symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3z"/><path d="M20.5 14v.01"/><path d="M17.5 20.5h3"/><path d="M14 20.5h.01"/></symbol>
+<symbol id="i-git" viewBox="0 0 24 24"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></symbol>
+<symbol id="i-filecheck" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2a2.1 2.1 0 1 0-3-3z"/><path d="M12 15 9 12a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0"/><path d="M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></symbol>
+<symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M9 19h5a4 4 0 0 0 0-8H10a4 4 0 0 1 0-8h5"/></symbol>
+    <symbol id="i-role" viewBox="0 0 24 24">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+    </symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24">
+      <circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/>
+      <path d="M2 3h2.2l2.3 12.2a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3L20 7H5.2"/>
+    </symbol>
+    <symbol id="i-drive" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="6" rx="2"/><rect x="3" y="13" width="18" height="6" rx="2"/>
+      <path d="M7 8h.01M7 16h.01"/>
+    </symbol>
+  </defs></svg>
+
   <div id="scrollbar"></div>
 
-  <!-- ================= NAVBAR ================= -->
+  <!-- ================= NAVBAR (5 entrées + indicateur de position) ================= -->
   <header class="topbar" id="topbar">
     <div class="container nav">
-      <a class="brand" href="#accueil">
-        <span class="brand-mark">J</span>
+      <a class="brand" href="#profil" aria-label="Jean Freddy Abessolo Ovono — retour en haut">
+        <span class="brand-mark" aria-hidden="true">JF</span>
+        <span class="brand-txt">
+          <b>Jean Freddy Abessolo Ovono</b>
+          <i>Développeur Backend</i>
+        </span>
       </a>
       <nav class="nav-links" id="nav-links" aria-label="Navigation principale">
-        <a href="#profil">Profil</a>
-        <a href="#experience">Expérience</a>
-        <a href="#projets">Projets</a>
-        <a href="#competences">Compétences</a>
-        <a href="#formation">Formation</a>
-        <a href="#telechargements">Documents</a>
-        <a href="#contact">Contact</a>
-        <a class="menu-cv" href="Abessolo_Ovono_Jean_Freddy_CV.pdf" download>Télécharger le CV</a>
+        <a href="#profil" data-spy="profil"><svg class="ic"><use href="#i-user"/></svg>Profil</a>
+        <a href="#projets" data-spy="projets"><svg class="ic"><use href="#i-layers"/></svg>Projets</a>
+        <a href="#competences" data-spy="competences"><svg class="ic"><use href="#i-code"/></svg>Compétences</a>
+        <a href="#parcours" data-spy="parcours"><svg class="ic"><use href="#i-route"/></svg>Parcours</a>
+        <a href="#contact" data-spy="contact"><svg class="ic"><use href="#i-mail"/></svg>Contact</a>
       </nav>
       <div class="nav-cta">
-        <button class="icon-btn" id="theme-toggle" aria-label="Changer de thème" title="Changer de thème">🌙</button>
-        <a class="btn sm primary" href="Abessolo_Ovono_Jean_Freddy_CV.pdf" download>Télécharger le CV</a>
+        <button class="icon-btn" id="theme-toggle" aria-label="Changer de thème" title="Changer de thème">
+          <svg class="ic" id="theme-icon"><use href="#i-moon"/></svg>
+        </button>
+        <a class="btn sm primary" href="Abessolo_Ovono_Jean_Freddy_CV.pdf" download>
+          <svg class="ic"><use href="#i-download"/></svg>CV
+        </a>
         <button class="menu-btn" id="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
     </div>
+    <!-- Repère de progression : où l'on est / où l'on va -->
+    <div class="nav-rail" aria-hidden="true"><i id="nav-rail-fill"></i></div>
   </header>
 
   <main id="accueil">
 
-    <!-- ================= HERO ================= -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow"><span class="pulse"></span> Disponible pour de nouvelles opportunités</div>
-          <h1>Backends <span class="grad">fiables, sécurisés</span> et prêts pour la production.</h1>
-          <div class="pitch"><span class="spark">💡</span> Des backends qui encaissent. Des API qui répondent. Des systèmes sous contrôle.</div>
-          <p class="lead">
-            Je suis <strong>Abessolo Ovono Jean Freddy</strong>, développeur backend spécialisé
-            <strong>Python · Django · API REST</strong>, bases de données relationnelles et Linux.
-            Mon profil combine génie logiciel, qualité des applications et une forte orientation cloud.
-          </p>
-          <div class="type-line" aria-hidden="true"><span class="prompt">$&nbsp;je&nbsp;travaille&nbsp;avec&nbsp;</span><span id="typed"></span><span class="caret"></span></div>
-          <div class="hero-actions">
-            <a class="btn primary" href="#projets">Voir mes projets →</a>
-            <a class="btn dark" href="#contact">Me contacter</a>
-          </div>
-          <div class="hero-meta">
-            <div class="metric"><strong data-count="4">0</strong><span>Diplômes IT &amp; scientifiques</span></div>
-            <div class="metric"><strong data-count="3">0</strong><span>Stages backend réalisés</span></div>
-            <div class="metric"><strong data-count="4">0</strong><span>Certifications disponibles</span></div>
-          </div>
+    <!-- ================= PROFIL (identité — lecture en 5-10 s) ================= -->
+  <section class="hero" id="profil" data-spy="profil">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow"><span class="pulse"></span> Disponible pour de nouvelles opportunit&eacute;s</div>
+        <p class="hero-name">Abessolo Ovono Jean Freddy</p>
+        <h1>D&eacute;veloppeur backend <span class="grad">Django &amp; API REST</span></h1>
+        <p class="lead">
+          Je con&ccedil;ois des backends qui encaissent&nbsp;: API REST, bases de donn&eacute;es relationnelles
+          et syst&egrave;mes de supervision. <strong>3 stages</strong> sur des applications r&eacute;elles,
+          <strong>4 dipl&ocirc;mes Bac&nbsp;+2/+3</strong>, bas&eacute; &agrave; Bafoussam&nbsp;&mdash; disponible &agrave; distance.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="#projets">Voir mes projets <svg class="ic"><use href="#i-arrow"/></svg></a>
+          <a class="btn dark" href="#contact">Me contacter</a>
+          <a class="btn" href="Abessolo_Ovono_Jean_Freddy_CV.pdf" download><svg class="ic"><use href="#i-download"/></svg>T&eacute;l&eacute;charger le CV</a>
         </div>
 
-        <aside class="portrait-card" aria-label="Informations rapides">
-          <div class="portrait"><img src="photo.jpg" alt="Photo de Abessolo Ovono Jean Freddy"></div>
-          <div class="portrait-info">
-            <div class="p-name">Abessolo Ovono<br>Jean Freddy</div>
-            <div class="p-role">Développeur Backend Django</div>
+        <!-- Carte d'identit&eacute; : l'essentiel du profil, scannable instantly -->
+        <div class="id-card" aria-label="Mon profil en bref">
+          <div class="id-row">
+            <span class="id-ic"><svg class="ic sm"><use href="#i-code"/></svg></span>
+            <div><b>Backend, API &amp; donn&eacute;es</b><i>Python &middot; Django &middot; DRF &middot; Java/Spring &middot; PHP &middot; PostgreSQL</i></div>
           </div>
-          <div class="contact-list">
-            <div><span class="ic">📍</span><span>Bafoussam, Cameroun</span></div>
-            <a href="tel:+237690628296"><span class="ic">📞</span><span>+237 690 628 296<span class="sec"> · +237 681 962 892</span></span></a>
-            <a href="mailto:abessolofreddy2005@gmail.com"><span class="ic">✉️</span><span>abessolofreddy2005@gmail.com</span></a>
-            <a href="https://github.com/ignirdrgag" target="_blank" rel="noopener"><span class="ic">🐙</span><span>github.com/ignirdrgag</span></a>
+          <div class="id-row">
+            <span class="id-ic"><svg class="ic sm"><use href="#i-briefcase"/></svg></span>
+            <div><b>3 stages backend (2024&ndash;2025)</b><i>HOOYIA &middot; ENVOL Learn and Travel</i></div>
           </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- ================= PROFIL ================= -->
-    <section id="profil">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="label">Profil professionnel</div>
-          <h2>Une culture logiciel au service du backend.</h2>
-          <p>Je construis des applications utiles, maintenables et robustes, avec une attention forte sur les données, les API et l'exploitation système.</p>
-        </div>
-        <div class="grid-2">
-          <article class="panel reveal-left">
-            <div class="tagline">Ce que j'apporte</div>
-            <h3>Backend, API &amp; systèmes</h3>
-            <p>Développement Python/Django, API REST avec Django REST Framework, modélisation PostgreSQL / MySQL / SQLite, intégration Git/GitHub, scripts Bash, environnement Linux &amp; Windows et conteneurisation Docker.</p>
-          </article>
-          <article class="panel reveal-right">
-            <div class="tagline">Orientation métier</div>
-            <h3>Cloud &amp; données</h3>
-            <p>Je progresse vers le cloud (Kubernetes), la data science et l'analyse de données, en consolidant la robustesse et la performance de mes applications.</p>
-          </article>
+          <div class="id-row">
+            <span class="id-ic"><svg class="ic sm"><use href="#i-cap"/></svg></span>
+            <div><b>4 dipl&ocirc;mes Bac&nbsp;+2 / Bac&nbsp;+3</b><i>G&eacute;nie logiciel &middot; Qualit&eacute;, s&eacute;curit&eacute; internet &amp; r&eacute;seaux</i></div>
+          </div>
+          <div class="id-row">
+            <span class="id-ic"><svg class="ic sm"><use href="#i-globe"/></svg></span>
+            <div><b>Fran&ccedil;ais C1 &middot; Anglais B1</b><i>Bafoussam, Cameroun &middot; t&eacute;l&eacute;travail et sur site</i></div>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- ================= EXPERIENCE ================= -->
-    <section id="experience" class="section-alt">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="label">Expérience professionnelle</div>
-          <h2>Stages backend sur des projets applicatifs réels.</h2>
+      <aside class="portrait-card" aria-label="Coordonn&eacute;es rapides">
+        <div class="portrait"><img src="photo.jpg" alt="Photo de Abessolo Ovono Jean Freddy" width="320" height="320"></div>
+        <div class="portrait-info">
+          <div class="p-name">Abessolo Ovono<br>Jean Freddy</div>
+          <div class="p-role">D&eacute;veloppeur Backend Django</div>
+        </div>
+        <div class="contact-list">
+          <div><span class="ic-box"><svg class="ic sm"><use href="#i-pin"/></svg></span><span>Bafoussam, Cameroun</span></div>
+          <a href="tel:+237690628296"><span class="ic-box"><svg class="ic sm"><use href="#i-phone"/></svg></span><span>+237 690 628 296<span class="sec"> &middot; +237 681 962 892</span></span></a>
+          <a href="mailto:abessolofreddy2005@gmail.com"><span class="ic-box"><svg class="ic sm"><use href="#i-mail"/></svg></span><span>abessolofreddy2005@gmail.com</span></a>
+          <a href="https://github.com/ignirdrgag" target="_blank" rel="noopener"><span class="ic-box"><svg class="ic sm"><use href="#i-github"/></svg></span><span>github.com/ignirdrgag</span></a>
+        </div>
+        <a class="btn primary block" href="#contact" style="margin-top:16px;">
+          <svg class="ic sm"><use href="#i-send"/></svg>Me contacter
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= RÉSUMÉ DU PROFIL (parcours en bref) ================= -->
+  <section class="section-alt" id="resume" data-spy="profil">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="label">Profil professionnel</div>
+        <h2>Une culture logiciel au service du backend.</h2>
+        <p>Exp&eacute;rience, formation et documents sont regroup&eacute;s dans l&rsquo;onglet&nbsp;Parcours&nbsp;: tout mon parcours tient en trois blocs.</p>
+      </div>
+
+      <!-- Parcours en bref : experience + formation + documents, cliquables -->
+      <div class="brief-grid stagger">
+        <a class="brief-card reveal-left" href="#experience">
+          <span class="b-ic"><svg class="ic lg"><use href="#i-briefcase"/></svg></span>
+          <div>
+            <h3>Exp&eacute;rience</h3>
+            <p>3 stages backend sur des projets applicatifs r&eacute;els, de la mod&eacute;lisation de donn&eacute;es &agrave; la structuration d&rsquo;API.</p>
+            <span class="b-go">Voir la timeline <svg class="ic sm"><use href="#i-arrow"/></svg></span>
+          </div>
+        </a>
+        <a class="brief-card reveal" href="#formation">
+          <span class="b-ic"><svg class="ic lg"><use href="#i-cap"/></svg></span>
+          <div>
+            <h3>Formation</h3>
+            <p>4 dipl&ocirc;mes en informatique et en r&eacute;seaux, du BTS au Bac&nbsp;+3 en g&eacute;nie logiciel.</p>
+            <span class="b-go">Voir le parcours <svg class="ic sm"><use href="#i-arrow"/></svg></span>
+          </div>
+        </a>
+        <a class="brief-card reveal-right" href="#documents">
+          <span class="b-ic"><svg class="ic lg"><use href="#i-filecheck"/></svg></span>
+          <div>
+            <h3>Documents</h3>
+            <p>CV et 4 certifications (Python, Pandas, Skiti Learn) consultables en ligne et t&eacute;l&eacute;chargeables.</p>
+            <span class="b-go">Voir les documents <svg class="ic sm"><use href="#i-arrow"/></svg></span>
+          </div>
+        </a>
+      </div>
+
+      <div class="grid-2" style="margin-top:20px;">
+        <article class="panel reveal-left">
+          <div class="tagline">Ce que j&rsquo;apporte</div>
+          <h3>Backend, API &amp; syst&egrave;mes</h3>
+          <p>D&eacute;veloppement Python/Django, API REST avec Django REST Framework, mod&eacute;lisation PostgreSQL / MySQL / SQLite, int&eacute;gration Git/GitHub, scripts Bash, environnement Linux &amp; Windows et conteneurisation Docker.</p>
+        </article>
+        <article class="panel reveal-right">
+          <div class="tagline">Orientation m&eacute;tier</div>
+          <h3>Cloud &amp; donn&eacute;es</h3>
+          <p>Je progresse vers le cloud (Kubernetes), la data science et l&rsquo;analyse de donn&eacute;es, en consolidant la robustesse et la performance de mes applications.</p>
+        </article>
+      </div>
+
+      <a class="next-step" href="#projets">
+        <span class="ns-txt"><i>&Eacute;tape suivante</i> Mes projets &mdash; solutions, captures et liens</span>
+        <span class="ns-go"><svg class="ic"><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= PROJETS : nom · solution · capture · lien ================= -->
+  <section id="projets" data-spy="projets">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="label">Projets</div>
+        <h2>Des solutions concrètes, pas des listes de technologies.</h2>
+        <p>Pour chaque projet&nbsp;: le problème posé, ce que j&rsquo;ai construit, une capture de l&rsquo;interface et un lien quand le code est public.</p>
+      </div>
+
+      <div class="filters reveal" role="tablist" aria-label="Filtrer les projets par catégorie">
+        <button class="filter-btn active" type="button" role="tab" aria-selected="true" data-filter="all">
+          <svg class="ic"><use href="#i-grid"/></svg>Tous<span class="f-n">6</span>
+        </button>
+        <button class="filter-btn" type="button" role="tab" aria-selected="false" data-filter="backend">
+          <svg class="ic"><use href="#i-server"/></svg>Backend &amp; API<span class="f-n">3</span>
+        </button>
+        <button class="filter-btn" type="button" role="tab" aria-selected="false" data-filter="frontend">
+          <svg class="ic"><use href="#i-code"/></svg>Frontend<span class="f-n">1</span>
+        </button>
+        <button class="filter-btn" type="button" role="tab" aria-selected="false" data-filter="securite">
+          <svg class="ic"><use href="#i-shield"/></svg>Cybersécurité<span class="f-n">2</span>
+        </button>
+      </div>
+
+      <div class="grid-3" id="projects-grid">
+
+        <!-- 1. Supervision IA -->
+        <article class="project reveal" data-cat="backend">
+          <div class="shot">
+            <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>tableau-de-bord</span></div>
+            <img class="shot-lqip" src="assets/projects/supervision-ia-lqip.jpg" alt="" aria-hidden="true">
+            <img class="shot-img" src="assets/projects/supervision-ia.jpg" alt="Tableau de bord de l'application Supervision : vue d'ensemble des agents surveillés" loading="lazy" width="1000" height="503">
+            <span class="shot-tag"><svg class="ic"><use href="#i-cap"/></svg>Interface réelle</span>
+          </div>
+          <div class="p-body">
+            <div class="p-top">
+              <div class="p-icon"><svg class="ic"><use href="#i-layers"/></svg></div>
+              <div>
+                <h3>Supervision IA</h3>
+                <div class="p-meta"><svg class="ic"><use href="#i-role"/></svg>Projet de stage &middot; Detection d&rsquo;anomalies</div>
+              </div>
+            </div>
+            <p class="p-solution"><b>Solution&nbsp;:</b> une application web qui centralise les remontées d&rsquo;agents, détecte les comportements anormaux et affiche une hiérarchie de supervision. J&rsquo;ai conçu le schéma de données puis l&rsquo;API qui sert le tableau de bord.</p>
+            <ul class="p-points">
+              <li><svg class="ic"><use href="#i-check"/></svg>Modélisation relationnelle et requêtes de détection</li>
+              <li><svg class="ic"><use href="#i-check"/></svg>API REST consommée par l&rsquo;interface de supervision</li>
+              <li><svg class="ic"><use href="#i-check"/></svg>Code public sur GitHub</li>
+            </ul>
+            <div class="p-foot">
+              <div class="stack"><span class="tag">Python</span><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">JavaScript</span></div>
+              <a class="btn sm primary" href="https://github.com/ignirdrgag/Supervision_Monitoring_App" target="_blank" rel="noopener">
+                <svg class="ic"><use href="#i-github"/></svg>Code
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Salon Mobilier -->
+        <article class="project reveal" data-cat="backend">
+          <div class="shot">
+            <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>dashboard</span></div>
+            <img class="shot-lqip" src="assets/projects/salon-mobilier-lqip.jpg" alt="" aria-hidden="true">
+            <img class="shot-img" src="assets/projects/salon-mobilier.jpg" alt="Tableau de bord du projet Salon Mobilier : vue des indicateurs" loading="lazy" width="1000" height="562">
+            <span class="shot-tag"><svg class="ic"><use href="#i-cap"/></svg>Interface réelle</span>
+          </div>
+          <div class="p-body">
+            <div class="p-top">
+              <div class="p-icon alt"><svg class="ic"><use href="#i-phone"/></svg></div>
+              <div>
+                <h3>Salon Mobilier</h3>
+                <div class="p-meta"><svg class="ic"><use href="#i-role"/></svg>Projet de stage &middot; Gestion &amp; suivi</div>
+              </div>
+            </div>
+            <p class="p-solution"><b>Solution&nbsp;:</b> un tableau de bord pour suivre l&rsquo;activité d&rsquo;un salon de mobilier&nbsp;: indicateurs, données saisies et historique consultable depuis une interface dédiée.</p>
+            <ul class="p-points">
+              <li><svg class="ic"><use href="#i-check"/></svg>Interface de pilotage responsive</li>
+              <li><svg class="ic"><use href="#i-check"/></svg>Back-office et lectures des indicateurs</li>
+              <li><svg class="ic"><use href="#i-check"/></svg>Code public sur GitHub</li>
+            </ul>
+            <div class="p-foot">
+              <div class="stack"><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">MySQL</span></div>
+              <a class="btn sm primary" href="https://github.com/ignirdrgag/salon-mobilier" target="_blank" rel="noopener">
+                <svg class="ic"><use href="#i-github"/></svg>Code
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Gestion de Vente -->
+        <article class="project reveal" data-cat="backend">
+          <div class="shot">
+            <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>ecran-accueil</span></div>
+            <img class="shot-lqip" src="assets/projects/gestion-vente-lqip.jpg" alt="" aria-hidden="true">
+            <img class="shot-img" src="assets/projects/gestion-vente.jpg" alt="Module Gestion de Vente : écran d'accueil de l'application" loading="lazy" width="1000" height="659">
+            <span class="shot-tag"><svg class="ic"><use href="#i-cap"/></svg>Interface réelle</span>
+          </div>
+          <div class="p-body">
+            <div class="p-top">
+              <div class="p-icon gold"><svg class="ic"><use href="#i-cart"/></svg></div>
+              <div>
+                <h3>Module Gestion de Vente</h3>
+                <div class="p-meta"><svg class="ic"><use href="#i-role"/></svg>Projet académique &middot; PHP MVC</div>
+              </div>
+            </div>
+            <p class="p-solution"><b>Solution&nbsp;:</b> un module de gestion de vente en architecture MVC&nbsp;: gestion du stock, des clients et des commandes, avec une interface d&rsquo;accueil qui donne l&rsquo;essai de l&rsquo;application.</p>
+            <ul class="p-points">
+              <li><svg class="ic"><use href="#i-check"/></svg>Architecture MVC séparée (modèles, vues, contrôleurs)</li>
+              <li><svg class="ic"><use href="#i-check"/></svg>Formulaires de saisie et consultation des ventes</li>
+              <li><svg class="ic"><use href="#i-check"/></svg>Projet non publié&mdash;d&eacute;mo sur demande</li>
+            </ul>
+            <div class="p-foot">
+              <div class="stack"><span class="tag">PHP</span><span class="tag">MVC</span><span class="tag">MySQL</span></div>
+              <span class="p-note"><svg class="ic"><use href="#i-lock"/></svg>Code sur demande</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Pentesting -->
+        <article class="project reveal" data-cat="securite">
+          <div class="p-body">
+            <div class="p-top">
+              <div class="p-icon violet"><svg class="ic"><use href="#i-shield"/></svg></div>
+              <div>
+                <h3>Pentesting Multicible</h3>
+                <div class="p-meta"><svg class="ic"><use href="#i-role"/></svg>Projet personnel &middot; Sécurité</div>
+              </div>
+            </div>
+            <p class="p-solution"><b>Solution&nbsp;:</b> un outil de test de sécurité qui cible plusieurs hôtes et automatise des phases de reconnaissance et de détection de failles, avec un rapport exploitable.</p>
+            <ul class="p-points">
+              <li><svg class="ic"><use href="#i-check"/></svg>Scan multi-cibles et fingerprint de services</li>
+              <li><svg class="ic"><use href="#i-check"/></svg>Automatisation de collecte et de rapport</li>
+            </ul>
+            <div class="p-foot">
+              <div class="stack"><span class="tag">Python</span><span class="tag">Bash</span><span class="tag">Linux</span></div>
+              <span class="p-note"><svg class="ic"><use href="#i-lock"/></svg>Code sur demande</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. NTFS -->
+        <article class="project reveal" data-cat="securite">
+          <div class="p-body">
+            <div class="p-top">
+              <div class="p-icon violet"><svg class="ic"><use href="#i-drive"/></svg></div>
+              <div>
+                <h3>NTFS Secure Manager</h3>
+                <div class="p-meta"><svg class="ic"><use href="#i-role"/></svg>Projet personnel &middot; Système</div>
+              </div>
+            </div>
+            <p class="p-solution"><b>Solution&nbsp;:</b> un gestionnaire de permissions NTFS qui expose les droits d&rsquo;accès d&rsquo;un disque dans une interface claire et permet de les corriger sans passer par des commandes système obscures.</p>
+            <ul class="p-points">
+              <li><svg class="ic"><use href="#i-check"/></svg>Lecture et application des ACL Windows</li>
+              <li><svg class="ic"><use href="#i-check"/></svg>Interface de visualisation par dossier</li>
+            </ul>
+            <div class="p-foot">
+              <div class="stack"><span class="tag">C#</span><span class="tag">Windows</span></div>
+              <span class="p-note"><svg class="ic"><use href="#i-lock"/></svg>Code sur demande</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. QR -->
+        <article class="project reveal" data-cat="frontend">
+          <div class="p-body">
+            <div class="p-top">
+              <div class="p-icon"><svg class="ic"><use href="#i-qr"/></svg></div>
+              <div>
+                <h3>Générateur de QR Codes</h3>
+                <div class="p-meta"><svg class="ic"><use href="#i-role"/></svg>Projet personnel &middot; Frontend</div>
+              </div>
+            </div>
+            <p class="p-solution"><b>Solution&nbsp;:</b> un générateur de QR codes qui transforme un texte ou une URL en image téléchargeable, directement dans le navigateur, sans installation ni compte.</p>
+            <ul class="p-points">
+              <li><svg class="ic"><use href="#i-check"/></svg>Génération et téléchargement de l&rsquo;image</li>
+              <li><svg class="ic"><use href="#i-check"/></svg>Interface utilisable sur mobile</li>
+            </ul>
+            <div class="p-foot">
+              <div class="stack"><span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span></div>
+              <span class="p-note"><svg class="ic"><use href="#i-lock"/></svg>Code sur demande</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <a class="next-step" href="#competences">
+        <span class="ns-txt"><i>&Eacute;tape suivante</i> Mes comp&eacute;tences &mdash; cat&eacute;gories et niveaux</span>
+        <span class="ns-go"><svg class="ic"><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= COMPÉTENCES : catégories + niveaux ================= -->
+  <section id="competences" data-spy="competences" class="section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="label">Comp&eacute;tences</div>
+        <h2>Ce que je manipule, et &agrave; quel niveau.</h2>
+        <p>Les cat&eacute;gories refl&egrave;tent ma sp&eacute;cialisation backend&nbsp;; le niveau est indiqu&eacute; explicitement plut&ocirc;t que laiss&eacute; &agrave; interpr&eacute;ter.</p>
+      </div>
+
+      <div class="lv-legend reveal" aria-label="&Eacute;chelle de niveaux">
+        <span class="lv"><span class="lv-dot l4"></span><b>90–100&nbsp;%</b> Expert</span>
+        <span class="lv"><span class="lv-dot l3"></span><b>80–89&nbsp;%</b> Avanc&eacute;</span>
+        <span class="lv"><span class="lv-dot l2"></span><b>70–79&nbsp;%</b> Pratique</span>
+        <span class="lv"><span class="lv-dot l1"></span><b>&lt;&nbsp;70&nbsp;%</b> Notions</span>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-group reveal">
+          <div class="tagline">Backend &amp; API</div>
+          <div class="skill-row" data-w="90"><div class="sr-top"><b>Python</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="88"><div class="sr-top"><b>Django</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="85"><div class="sr-top"><b>Django REST Framework</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="80"><div class="sr-top"><b>PHP</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="72"><div class="sr-top"><b>Flask</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="tagline">Donn&eacute;es &amp; requ&ecirc;tage</div>
+          <div class="skill-row" data-w="86"><div class="sr-top"><b>PostgreSQL</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="83"><div class="sr-top"><b>MySQL / MariaDB</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="80"><div class="sr-top"><b>Mod&eacute;lisation</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="75"><div class="sr-top"><b>Pandas / NumPy</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="72"><div class="sr-top"><b>SQL optimisation</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="tagline">Frontend</div>
+          <div class="skill-row" data-w="80"><div class="sr-top"><b>JavaScript</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="75"><div class="sr-top"><b>HTML5 &amp; CSS3</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="70"><div class="sr-top"><b>Bootstrap</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="65"><div class="sr-top"><b>React</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="tagline">Syst&egrave;mes &amp; outils</div>
+          <div class="skill-row" data-w="85"><div class="sr-top"><b>Linux</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="82"><div class="sr-top"><b>Git &amp; GitHub</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="78"><div class="sr-top"><b>Bash</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="70"><div class="sr-top"><b>Docker</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+          <div class="skill-row" data-w="65"><div class="sr-top"><b>Windows</b><i></i></div><div class="track"><span class="fill"></span></div></div>
+        </div>
+
+        <div class="skill-group wide reveal">
+          <div class="tagline">Langues &amp; m&eacute;thodes</div>
+          <div class="lang-row">
+            <div class="lang-row-item">
+              <div class="lang-top"><b>Fran&ccedil;ais</b><i>Langue maternelle</i></div>
+              <div class="track"><span class="fill" style="transform:scaleX(1)"></span></div>
+            </div>
+            <div class="lang-row-item">
+              <div class="lang-top"><b>Anglais technique</b><i>Documentation &amp; code</i></div>
+              <div class="track"><span class="fill" style="transform:scaleX(.7)"></span></div>
+            </div>
+            <div class="skill-tag-row">
+              <span class="tag">MVC</span><span class="tag">Architecture REST</span><span class="tag">POO</span>
+              <span class="tag">Merise / UML</span><span class="tag">Scrum</span><span class="tag">D&eacute;bogage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a class="next-step" href="#parcours">
+        <span class="ns-txt"><i>&Eacute;tape suivante</i> Mon parcours &mdash; exp&eacute;rience, formation, documents</span>
+        <span class="ns-go"><svg class="ic"><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= PARCOURS : expérience · formation · documents ================= -->
+  <section id="parcours" data-spy="parcours">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="label">Parcours</div>
+        <h2>Exp&eacute;rience, formation et documents.</h2>
+        <p>Trois blocs, un seul onglet&nbsp;: ce que j&rsquo;ai fait, ce que j&rsquo;ai appris, et les preuves t&eacute;l&eacute;chargeables.</p>
+      </div>
+
+      <!-- Sommaire interne : le visiteur sait o&ugrave; aller ensuite -->
+      <nav class="sub-nav reveal" id="sub-nav" aria-label="Sommaire du parcours">
+        <a href="#experience" class="on"><svg class="ic sm"><use href="#i-briefcase"/></svg>Exp&eacute;rience <b>3</b></a>
+        <a href="#formation"><svg class="ic sm"><use href="#i-cap"/></svg>Formation <b>4</b></a>
+        <a href="#documents"><svg class="ic sm"><use href="#i-filecheck"/></svg>Documents <b>5</b></a>
+      </nav>
+
+      <!-- ---------- 1. EXPÉRIENCE ---------- -->
+      <div class="sub-block" id="experience">
+        <div class="sub-head reveal">
+          <span class="sub-ic"><svg class="ic lg"><use href="#i-briefcase"/></svg></span>
+          <div>
+            <h3>Exp&eacute;rience professionnelle</h3>
+            <p>Stages backend sur des projets applicatifs r&eacute;els</p>
+          </div>
         </div>
         <div class="timeline">
           <article class="job reveal-left">
-            <div class="date">Août — Sept. 2025</div>
+            <div class="date">Ao&ucirc;t &mdash; Sept. 2025</div>
             <div>
-              <h3>Stage en développement backend</h3>
-              <div class="company">HOOYIA <span class="badge">Développeur Backend</span></div>
-              <p>Développement de fonctionnalités backend, structuration d'API, intégration de logique métier, manipulation de données et collaboration avec l'équipe projet.</p>
+              <h3>Stage en d&eacute;veloppement backend</h3>
+              <div class="company">HOOYIA <span class="badge">D&eacute;veloppeur Backend</span></div>
+              <p>D&eacute;veloppement de fonctionnalit&eacute;s backend, structuration d&rsquo;API, int&eacute;gration de logique m&eacute;tier, manipulation de donn&eacute;es et collaboration avec l&rsquo;&eacute;quipe projet.</p>
             </div>
           </article>
           <article class="job reveal-left">
-            <div class="date">Avril — Juillet 2025</div>
+            <div class="date">Avril &mdash; Juillet 2025</div>
             <div>
-              <h3>Stage en développement backend</h3>
-              <div class="company">ENVOL LEARN and TRAVEL <span class="badge">Développeur Backend</span></div>
-              <p>Conception de modules backend, modélisation de bases de données, développement d'API REST, amélioration de la structure Django et suivi des besoins fonctionnels.</p>
+              <h3>Stage en d&eacute;veloppement backend</h3>
+              <div class="company">ENVOL LEARN and TRAVEL <span class="badge">D&eacute;veloppeur Backend</span></div>
+              <p>Conception de modules backend, mod&eacute;lisation de bases de donn&eacute;es, d&eacute;veloppement d&rsquo;API REST, am&eacute;lioration de la structure Django et suivi des besoins fonctionnels.</p>
             </div>
           </article>
           <article class="job reveal-left">
-            <div class="date">Mai — Juillet 2024</div>
+            <div class="date">Mai &mdash; Juillet 2024</div>
             <div>
-              <h3>Stage en développement backend</h3>
-              <div class="company">ENVOL LEARN and TRAVEL <span class="badge">Développeur Backend</span></div>
-              <p>Participation au développement d'applications web, gestion des données, correction d'anomalies et consolidation des bases en Python, Django et SQL.</p>
+              <h3>Stage en d&eacute;veloppement backend</h3>
+              <div class="company">ENVOL LEARN and TRAVEL <span class="badge">D&eacute;veloppeur Backend</span></div>
+              <p>Participation au d&eacute;veloppement d&rsquo;applications web, gestion des donn&eacute;es, correction d&rsquo;anomalies et consolidation des bases en Python, Django et SQL.</p>
             </div>
           </article>
         </div>
       </div>
-    </section>
 
-    <!-- ================= PROJETS + FILTRES ================= -->
-    <section id="projets">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="label">Projets techniques</div>
-          <h2>Supervision et productivité.</h2>
-          <p>Des réalisations concrètes qui illustrent ma façon de concevoir des solutions utiles et robustes.</p>
-        </div>
-        <div class="filters reveal" id="filters" role="tablist" aria-label="Filtrer les projets">
-          <button class="filter-btn active" data-filter="all" role="tab">Tous</button>
-          <button class="filter-btn" data-filter="backend" role="tab">Backend</button>
-          <button class="filter-btn" data-filter="frontend" role="tab">Frontend</button>
-        </div>
-        <div class="grid-2" id="projects-grid">
-          <article class="panel project" data-cat="backend reseaux">
-            <div>
-              <div class="p-icon">📊</div>
-              <h3>Application de Supervision &amp; Monitoring</h3>
-              <p>Plateforme de suivi de serveurs et services avec tableaux de bord, alertes, état des machines et logique d'administration.</p>
-            </div>
-            <div class="stack">
-              <span class="chip">Python</span><span class="chip">Django</span><span class="chip">API REST</span><span class="chip">Docker</span>
-            </div>
-          </article>
-          <article class="panel project" data-cat="securite reseaux">
-            <div>
-              <div class="p-icon">🛡️</div>
-              <h3>Application Pentesting Multicible</h3>
-              <p>Outil d'analyse sécurité pour plusieurs cibles, orienté reconnaissance, vérification de vulnérabilités et génération de rapports exploitables.</p>
-            </div>
-            <div class="stack">
-              <span class="chip">Linux</span><span class="chip">Réseaux</span><span class="chip">Python</span><span class="chip">Sécurité</span>
-            </div>
-          </article>
-          <article class="panel project" data-cat="securite">
-            <div>
-              <div class="p-icon">🔐</div>
-              <h3>NTFS Secure Manager</h3>
-              <p>Solution de gestion et de sécurisation des accès NTFS : permissions, contrôle des droits et durcissement côté poste Windows.</p>
-            </div>
-            <div class="stack">
-              <span class="chip">Windows</span><span class="chip">Sécurité</span><span class="chip">Système</span>
-            </div>
-          </article>
-          <article class="panel project" data-cat="frontend">
-            <div>
-              <div class="p-icon">🔳</div>
-              <h3>Générateur de code QR</h3>
-              <p>Application utilitaire pour générer des QR codes personnalisés à partir d'URL, de textes ou d'informations de contact.</p>
-            </div>
-            <div class="stack">
-              <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Bootstrap 5</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= COMPETENCES ================= -->
-    <section id="competences" class="section-alt">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="label">Compétences techniques</div>
-          <h2>Un socle complet pour développer, déployer et sécuriser.</h2>
-        </div>
-        <div class="skills-wrap reveal">
-          <div class="skills-grid">
-            <div class="skill-group">
-              <h4><span class="gi">🐍</span> Développement</h4>
-              <div class="skill-row"><div class="sr-top"><b>Python / Django</b><i>90%</i></div><div class="track"><div class="fill" data-w="90"></div></div></div>
-              <div class="skill-row"><div class="sr-top"><b>Django REST Framework / API</b><i>85%</i></div><div class="track"><div class="fill" data-w="85"></div></div></div>
-              <div class="skill-row"><div class="sr-top"><b>Frontend (HTML · CSS · JS)</b><i>75%</i></div><div class="track"><div class="fill blue" data-w="75"></div></div></div>
-              <div class="skill-row"><div class="sr-top"><b>Bash / Automatisation</b><i>78%</i></div><div class="track"><div class="fill" data-w="78"></div></div></div>
-            </div>
-            <div class="skill-group">
-              <h4><span class="gi">🗄️</span> Données &amp; DevOps</h4>
-              <div class="skill-row"><div class="sr-top"><b>PostgreSQL / MySQL / SQLite</b><i>80%</i></div><div class="track"><div class="fill" data-w="80"></div></div></div>
-              <div class="skill-row"><div class="sr-top"><b>SQL / Modélisation</b><i>82%</i></div><div class="track"><div class="fill" data-w="82"></div></div></div>
-              <div class="skill-row"><div class="sr-top"><b>Docker</b><i>70%</i></div><div class="track"><div class="fill blue" data-w="70"></div></div></div>
-              <div class="skill-row"><div class="sr-top"><b>Git / GitHub</b><i>85%</i></div><div class="track"><div class="fill" data-w="85"></div></div></div>
-            </div>
-            <div class="skill-group">
-              <h4><span class="gi">⭐</span> Compétences clés</h4>
-              <div class="skill-tags">
-                <span class="skill-tag">SQL</span>
-                <span class="skill-tag">Django REST Framework</span>
-                <span class="skill-tag">Git / GitHub</span>
-                <span class="skill-tag">Docker</span>
-                <span class="skill-tag">Linux</span>
-                <span class="skill-tag">Bootstrap 5</span>
-                <span class="skill-tag">Tailwind CSS</span>
-                <span class="skill-tag">VirtualBox</span>
-              </div>
-              <div class="skill-row" style="margin-top:18px;">
-                <div class="sr-top"><b>Langues</b><i></i></div>
-                <div class="skill-tags">
-                  <span class="skill-tag">Français · C1</span>
-                  <span class="skill-tag">Anglais · B1</span>
-                </div>
-              </div>
-            </div>
+      <!-- ---------- 2. FORMATION ---------- -->
+      <div class="sub-block" id="formation">
+        <div class="sub-head reveal">
+          <span class="sub-ic"><svg class="ic lg"><use href="#i-cap"/></svg></span>
+          <div>
+            <h3>Formation</h3>
+            <p>Quatre dipl&ocirc;mes en informatique et en r&eacute;seaux</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= FORMATION ================= -->
-    <section id="formation">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="label">Formation</div>
-          <h2>Parcours académique</h2>
         </div>
         <div class="grid-2">
           <article class="panel edu-card reveal-left">
-            <span class="e-icon">🎓</span>
+            <span class="e-icon"><svg class="ic lg"><use href="#i-code"/></svg></span>
             <div>
-              <h3>Licence Professionnelle en Génie Logiciel</h3>
-              <p>Conception, développement, architecture logicielle et conduite de projets informatiques.</p>
+              <h3>Licence Professionnelle en G&eacute;nie Logiciel</h3>
+              <p>Conception, d&eacute;veloppement, architecture logicielle et conduite de projets informatiques.</p>
               <span class="e-tag">Bac +3</span>
             </div>
           </article>
           <article class="panel edu-card reveal-right">
-            <span class="e-icon">🛡️</span>
+            <span class="e-icon"><svg class="ic lg"><use href="#i-shield"/></svg></span>
             <div>
-              <h3>Licence Technologique en Qualité, Sécurité Internet &amp; Réseaux</h3>
-              <p>Administration réseaux, sécurité, protocoles, qualité de service et infrastructures.</p>
+              <h3>Licence Technologique en Qualit&eacute;, S&eacute;curit&eacute; Internet &amp; R&eacute;seaux</h3>
+              <p>Administration r&eacute;seaux, s&eacute;curit&eacute;, protocoles, qualit&eacute; de service et infrastructures.</p>
               <span class="e-tag">Bac +3</span>
             </div>
           </article>
           <article class="panel edu-card reveal-left">
-            <span class="e-icon">💻</span>
+            <span class="e-icon"><svg class="ic lg"><use href="#i-cpu"/></svg></span>
             <div>
-              <h3>Brevet de Technicien Supérieur en Génie Logiciel</h3>
-              <p>Bases solides en programmation, bases de données et développement applicatif.</p>
+              <h3>Brevet de Technicien Sup&eacute;rieur en G&eacute;nie Logiciel</h3>
+              <p>Bases solides en programmation, bases de donn&eacute;es et d&eacute;veloppement applicatif.</p>
               <span class="e-tag">Bac +2</span>
             </div>
           </article>
           <article class="panel edu-card reveal-right">
-            <span class="e-icon">🔬</span>
+            <span class="e-icon"><svg class="ic lg"><use href="#i-spark"/></svg></span>
             <div>
-              <h3>Baccalauréat Scientifique — Série C</h3>
-              <p>Formation scientifique avec un socle mathématique et logique solide.</p>
-              <span class="e-tag">Baccalauréat</span>
+              <h3>Baccalariat Scientifique &mdash; S&eacute;rie C</h3>
+              <p>Formation scientifique avec un socle math&eacute;matique et logique solide.</p>
+              <span class="e-tag">Baccalariat</span>
             </div>
           </article>
         </div>
       </div>
-    </section>
 
-    <!-- ================= TELECHARGEMENTS ================= -->
-    <section id="telechargements" class="section-alt">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="label">Documents</div>
-          <h2>CV &amp; certifications</h2>
-          <p>Cliquez sur un document pour l'apercevoir en plein écran, ou téléchargez-le directement.</p>
+      <!-- ---------- 3. DOCUMENTS ---------- -->
+      <div class="sub-block" id="documents">
+        <div class="sub-head reveal">
+          <span class="sub-ic"><svg class="ic lg"><use href="#i-filecheck"/></svg></span>
+          <div>
+            <h3>Documents</h3>
+            <p>Cliquez pour aper&ccedil;uvoir en plein &eacute;cran, ou t&eacute;l&eacute;chargez</p>
+          </div>
         </div>
         <div class="dl-grid stagger">
-          <button class="dl-card cv viewable" type="button" data-pdf="Abessolo_Ovono_Jean_Freddy_CV.pdf" data-name="Mon CV" data-sub="PDF · 1 page A4">
-            <span class="d-icon"><img src="icons/document.svg" alt=""></span>
-            <div><h3>Mon CV</h3><span class="d-sub">PDF · 1 page A4</span></div>
-            <span class="d-arrow">⤢</span>
+          <button class="dl-card cv viewable" type="button" data-pdf="Abessolo_Ovono_Jean_Freddy_CV.pdf" data-name="Mon CV" data-sub="PDF &middot; 1 page A4">
+            <span class="d-icon"><svg class="ic lg"><use href="#i-file"/></svg></span>
+            <div><h3>Mon CV</h3><span class="d-sub">PDF &middot; 1 page A4</span></div>
+            <span class="d-arrow"><svg class="ic sm"><use href="#i-eye"/></svg></span>
           </button>
-          <button class="dl-card viewable" type="button" data-pdf="certificate.pdf" data-name="Certificate" data-sub="PDF · Certification">
-            <span class="d-icon"><img src="icons/award.svg" alt=""></span>
-            <div><h3>Certificate</h3><span class="d-sub">PDF · Certification</span></div>
-            <span class="d-arrow">⤢</span>
+          <button class="dl-card viewable" type="button" data-pdf="certificate.pdf" data-name="Certificate" data-sub="PDF &middot; Certification">
+            <span class="d-icon"><svg class="ic lg"><use href="#i-badge"/></svg></span>
+            <div><h3>Certificate</h3><span class="d-sub">PDF &middot; Certification</span></div>
+            <span class="d-arrow"><svg class="ic sm"><use href="#i-eye"/></svg></span>
           </button>
-          <button class="dl-card viewable" type="button" data-pdf="certificate_python.pdf" data-name="Certificate Python" data-sub="PDF · Certification Python">
-            <span class="d-icon"><img src="icons/python.svg" alt=""></span>
-            <div><h3>Certificate Python</h3><span class="d-sub">PDF · Certification Python</span></div>
-            <span class="d-arrow">⤢</span>
+          <button class="dl-card viewable" type="button" data-pdf="certificate_python.pdf" data-name="Certificate Python" data-sub="PDF &middot; Certification Python">
+            <span class="d-icon"><svg class="ic lg"><use href="#i-code"/></svg></span>
+            <div><h3>Certificate Python</h3><span class="d-sub">PDF &middot; Certification Python</span></div>
+            <span class="d-arrow"><svg class="ic sm"><use href="#i-eye"/></svg></span>
           </button>
-          <button class="dl-card viewable" type="button" data-pdf="certificate_Pandas.pdf" data-name="Certificate Pandas" data-sub="PDF · Certification Pandas">
-            <span class="d-icon"><img src="icons/grid.svg" alt=""></span>
-            <div><h3>Certificate Pandas</h3><span class="d-sub">PDF · Certification Pandas</span></div>
-            <span class="d-arrow">⤢</span>
+          <button class="dl-card viewable" type="button" data-pdf="certificate_Pandas.pdf" data-name="Certificate Pandas" data-sub="PDF &middot; Certification Pandas">
+            <span class="d-icon"><svg class="ic lg"><use href="#i-grid"/></svg></span>
+            <div><h3>Certificate Pandas</h3><span class="d-sub">PDF &middot; Certification Pandas</span></div>
+            <span class="d-arrow"><svg class="ic sm"><use href="#i-eye"/></svg></span>
           </button>
-          <button class="dl-card viewable" type="button" data-pdf="skiti_learn.pdf" data-name="Skiti Learn" data-sub="PDF · Formation Skiti Learn">
-            <span class="d-icon"><img src="icons/book.svg" alt=""></span>
-            <div><h3>Skiti Learn</h3><span class="d-sub">PDF · Formation Skiti Learn</span></div>
-            <span class="d-arrow">⤢</span>
+          <button class="dl-card viewable" type="button" data-pdf="skiti_learn.pdf" data-name="Skiti Learn" data-sub="PDF &middot; Formation Skiti Learn">
+            <span class="d-icon"><svg class="ic lg"><use href="#i-book"/></svg></span>
+            <div><h3>Skiti Learn</h3><span class="d-sub">PDF &middot; Formation Skiti Learn</span></div>
+            <span class="d-arrow"><svg class="ic sm"><use href="#i-eye"/></svg></span>
           </button>
           <a class="dl-card" href="https://github.com/ignirdrgag" target="_blank" rel="noopener">
-            <span class="d-icon"><img src="icons/github.svg" alt=""></span>
+            <span class="d-icon"><svg class="ic lg"><use href="#i-github"/></svg></span>
             <div><h3>GitHub</h3><span class="d-sub">Mes projets open source</span></div>
-            <span class="d-arrow">↗</span>
+            <span class="d-arrow"><svg class="ic sm"><use href="#i-external"/></svg></span>
           </a>
         </div>
       </div>
-    </section>
 
-    <!-- ================= CONTACT ================= -->
-    <section id="contact">
+      <a class="next-step" href="#contact">
+        <span class="ns-txt"><i>&Eacute;tape suivante</i> Me contacter &mdash; r&eacute;ponse sous 24&nbsp;h</span>
+        <span class="ns-go"><svg class="ic"><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+    <section id="contact" data-spy="contact">
       <div class="container">
         <div class="section-head reveal">
           <div class="label">Contact</div>
@@ -966,7 +1596,9 @@
               <textarea id="f-message" name="message" placeholder="Décrivez votre projet ou votre demande…" required></textarea>
               <span class="err">Votre message doit contenir au moins 10 caractères.</span>
             </div>
-            <button type="submit" class="btn primary" style="width:100%;">Envoyer le message ✉️</button>
+            <button type="submit" class="btn primary" style="width:100%;">
+              Envoyer le message <svg class="ic sm"><use href="#i-send"/></svg>
+            </button>
             <p class="form-note">
               Votre message est envoyé directement vers ma boîte mail via le serveur Python.
               Vous pouvez aussi m'écrire à <a href="mailto:abessolofreddy2005@gmail.com" style="color:var(--accent);font-weight:700;">abessolofreddy2005@gmail.com</a>.
@@ -977,11 +1609,11 @@
             <div>
               <h3>Mes coordonnées</h3>
               <p>Réponse rapide, généralement sous 24h. N'hésitez pas à me contacter sur plusieurs canaux.</p>
-              <div class="info-item"><span class="ii">📞</span><span>+237 690 628 296</span></div>
-              <div class="info-item"><span class="ii">📱</span><span>+237 681 962 892</span></div>
-              <div class="info-item"><span class="ii">✉️</span><a href="mailto:abessolofreddy2005@gmail.com">abessolofreddy2005@gmail.com</a></div>
-              <div class="info-item"><span class="ii">🐙</span><a href="https://github.com/ignirdrgag" target="_blank" rel="noopener">github.com/ignirdrgag</a></div>
-              <div class="info-item"><span class="ii">📍</span><span>Bafoussam, Cameroun</span></div>
+              <div class="info-item"><span class="ii"><svg class="ic sm"><use href="#i-phone"/></svg></span><a href="tel:+237690628296">+237 690 628 296</a></div>
+              <div class="info-item"><span class="ii"><svg class="ic sm"><use href="#i-mobile"/></svg></span><a href="tel:+237681962892">+237 681 962 892</a></div>
+              <div class="info-item"><span class="ii"><svg class="ic sm"><use href="#i-mail"/></svg></span><a href="mailto:abessolofreddy2005@gmail.com">abessolofreddy2005@gmail.com</a></div>
+              <div class="info-item"><span class="ii"><svg class="ic sm"><use href="#i-github"/></svg></span><a href="https://github.com/ignirdrgag" target="_blank" rel="noopener">github.com/ignirdrgag</a></div>
+              <div class="info-item"><span class="ii"><svg class="ic sm"><use href="#i-pin"/></svg></span><span>Bafoussam, Cameroun</span></div>
             </div>
             <div style="margin-top:24px;">
               <div style="font-weight:800;margin-bottom:6px;color:#fff;">Objectifs actuels</div>
@@ -996,8 +1628,8 @@
             <p>Je cherche à contribuer à des projets techniques collaboratifs et à développer des solutions innovantes, utiles et professionnelles.</p>
           </div>
           <div class="actions">
-            <a class="btn primary" href="tel:+237690628296">📞 Appeler</a>
-            <a class="btn" href="mailto:abessolofreddy2005@gmail.com">✉️ Envoyer un email</a>
+            <a class="btn primary" href="tel:+237690628296"><svg class="ic sm"><use href="#i-phone"/></svg>Appeler</a>
+            <a class="btn" href="mailto:abessolofreddy2005@gmail.com"><svg class="ic sm"><use href="#i-mail"/></svg>Envoyer un email</a>
           </div>
         </div>
       </div>
@@ -1010,9 +1642,9 @@
       <span>© 2026 Abessolo Ovono Jean Freddy · Bafoussam, Cameroun</span>
       <span>GitHub : <a href="https://github.com/ignirdrgag" target="_blank" rel="noopener">github.com/ignirdrgag</a></span>
       <div class="footer-social">
-        <a href="https://github.com/ignirdrgag" target="_blank" rel="noopener" aria-label="GitHub">🐙</a>
-        <a href="mailto:abessolofreddy2005@gmail.com" aria-label="Email">✉️</a>
-        <a href="tel:+237690628296" aria-label="Téléphone">📞</a>
+        <a href="https://github.com/ignirdrgag" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ic sm"><use href="#i-github"/></svg></a>
+        <a href="mailto:abessolofreddy2005@gmail.com" aria-label="Email"><svg class="ic sm"><use href="#i-mail"/></svg></a>
+        <a href="tel:+237690628296" aria-label="T&eacute;l&eacute;phone"><svg class="ic sm"><use href="#i-phone"/></svg></a>
       </div>
     </div>
   </footer>
@@ -1026,14 +1658,14 @@
           <span class="sub" id="modal-sub"></span>
         </div>
         <div class="modal-actions">
-          <a class="btn sm primary" id="modal-dl" href="#" download>&#8595; T&eacute;l&eacute;charger</a>
-          <button class="modal-close" id="modal-close" aria-label="Fermer">&#10005;</button>
+          <a class="btn sm primary" id="modal-dl" href="#" download><svg class="ic sm"><use href="#i-download"/></svg>T&eacute;l&eacute;charger</a>
+          <button class="modal-close" id="modal-close" aria-label="Fermer"><svg class="ic sm"><use href="#i-close"/></svg></button>
         </div>
       </div>
       <div class="pdf-toolbar" id="pdf-toolbar">
-        <button type="button" id="pdf-prev" aria-label="Page pr&eacute;c&eacute;dente">&#8249;</button>
+        <button type="button" id="pdf-prev" aria-label="Page pr&eacute;c&eacute;dente"><svg class="ic sm" style="transform:rotate(90deg)"><use href="#i-arrow"/></svg></button>
         <span class="pdf-page" id="pdf-page">1 / 1</span>
-        <button type="button" id="pdf-next" aria-label="Page suivante">&#8250;</button>
+        <button type="button" id="pdf-next" aria-label="Page suivante"><svg class="ic sm" style="transform:rotate(-90deg)"><use href="#i-arrow"/></svg></button>
       </div>
       <div class="modal-body">
         <div id="pdf-status">Chargement&hellip;</div>
@@ -1046,7 +1678,7 @@
   <!-- ================= TOAST ================= -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <button id="toTop" aria-label="Revenir en haut de page" title="Revenir en haut">↑</button>
+  <button id="toTop" aria-label="Revenir en haut de page" title="Revenir en haut"><svg class="ic sm"><use href="#i-up"/></svg></button>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
@@ -1062,8 +1694,8 @@
       updateThemeIcon(theme);
     })();
     function updateThemeIcon(t) {
-      const btn = document.getElementById('theme-toggle');
-      if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+      const use = document.querySelector('#theme-icon use');
+      if (use) use.setAttribute('href', t === 'dark' ? '#i-sun' : '#i-moon');
     }
     document.getElementById('theme-toggle').addEventListener('click', () => {
       const html = document.documentElement;
@@ -1102,6 +1734,96 @@
     onScroll();
     toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
+    /* Sommaire interne du parcours : on calcule le bloc courant au scroll
+       (meme methode que la nav principale). Plus fiable qu'un IntersectionObserver
+       lorsqu'on arrive directement sur une ancre. */
+    /* topAbs : position du haut d'un element par rapport au document.
+       On evite offsetTop : il depend de l'offsetParent et serait faux
+       des qu'un conteneur est positionne. */
+    function topAbs(el) { return el.getBoundingClientRect().top + window.scrollY; }
+
+    const subNav = document.getElementById('sub-nav');
+    const subLinks = subNav ? Array.from(subNav.querySelectorAll('a')) : [];
+    const subTargets = subLinks
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+
+    function updateSub() {
+      if (!subTargets.length) return;
+      const line = window.scrollY + window.innerHeight * 0.3;
+      let cur = subTargets[0];
+      for (const t of subTargets) {
+        // On tient compte du scroll-margin-top : c'est lui qui decide de la
+        // position d'arrivee reelle du bloc apres un clic sur le sommaire.
+        // Sans ca, sur un ecran court, le bloc affiche resterait le precedent.
+        const margin = parseFloat(getComputedStyle(t).scrollMarginTop) || 0;
+        if (topAbs(t) - margin <= line) cur = t;
+      }
+      subLinks.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur.id));
+    }
+
+    /* ================= OÙ SUIS-JE ? (repère de lecture) =================
+       1. pastille active dans la nav (le visiteur sait toujours où il se trouve)
+       2. rail de progression sous la barre (combien j'ai parcouru)
+       Les sections peuvent partager une étape via data-spy (ex. #profil et #resume). */
+    const spySections = Array.from(document.querySelectorAll('section[data-spy]'));
+    const spyLinks = Array.from(document.querySelectorAll('.nav-links a[data-spy]'));
+    const railFill = document.getElementById('nav-rail-fill');
+    let spyCurrent = null;
+
+    function setSpy(key) {
+      if (key === spyCurrent) return;
+      spyCurrent = key;
+      spyLinks.forEach(a => {
+        const on = a.dataset.spy === key;
+        a.classList.toggle('active', on);
+        if (on) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    }
+
+    function updateSpy() {
+      // Le repère se place à mi-hauteur du viewport : la section qui occupe
+      // l'écran est considered comme "courante".
+      const line = window.scrollY + window.innerHeight * 0.35;
+      let key = spySections.length ? spySections[0].dataset.spy : null;
+      for (const sec of spySections) {
+        if (topAbs(sec) <= line) key = sec.dataset.spy;
+      }
+      // En fin de page, on force la dernière étape (le pied de page est court).
+      const h = document.documentElement;
+      if (h.scrollTop + h.clientHeight >= h.scrollHeight - 4 && spySections.length) {
+        key = spySections[spySections.length - 1].dataset.spy;
+      }
+      setSpy(key);
+    }
+
+    function updateRail() {
+      if (!railFill) return;
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const p = max > 0 ? (h.scrollTop / max) * 100 : 0;
+      railFill.style.width = p.toFixed(2) + '%';
+    }
+
+    let spyTick = false;
+    window.addEventListener('scroll', () => {
+      updateRail();
+      if (!spyTick) {
+        spyTick = true;
+        requestAnimationFrame(() => { updateSpy(); updateSub(); spyTick = false; });
+      }
+    }, { passive: true });
+    window.addEventListener('resize', () => { updateSpy(); updateSub(); }, { passive: true });
+    updateSpy();
+    updateSub();
+    updateRail();
+
+    // Un clic sur la nav doit poser le repère immédiatement (pas attendre le scroll)
+    spyLinks.forEach(a => a.addEventListener('click', () => setSpy(a.dataset.spy)));
+
+
+
     /* ================= RÉVÉLATION AU SCROLL ================= */
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1118,63 +1840,66 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(el => io.observe(el));
 
-    /* ================= EFFET MACHINE À ÉCRIRE ================= */
-    const roles = [
-      'Python & Django', 'Django REST Framework', 'API REST', 'PostgreSQL · MySQL',
-      'Cloud & Linux', 'Docker'
+        /* ================= CAPTURES DE PROJET (blur-up + secours) =================
+       LQIP : la miniature floue s'affiche immediatement, la capture nette la
+       remplace en fondu. Si l'image manque, on retire le cadre plutot que de
+       laisser un trou. */
+    document.querySelectorAll('.shot').forEach(shot => {
+      const img = shot.querySelector('.shot-img');
+      if (!img) return;
+      const done = () => shot.classList.add('ready');
+      if (img.complete && img.naturalWidth > 0) done();
+      else {
+        img.addEventListener('load', done, { once: true });
+        img.addEventListener('error', () => {
+          const card = shot.closest('.project');
+          if (card) { shot.remove(); card.removeAttribute('data-shot'); }
+        }, { once: true });
+      }
+    });
+
+    /* ================= BARRES DE COMPETENCES + NIVEAU ================= */
+    /* Source de verite unique : data-w sur .skill-row.
+       Le libelle de niveau est deduit du pourcentage (cf. echelle .lv-legend). */
+    const LEVELS = [
+      { min: 88, label: 'Expert',   cls: 'lv4' },
+      { min: 80, label: 'Avance',   cls: 'lv3' },
+      { min: 70, label: 'Pratique', cls: 'lv2' },
+      { min: 0,  label: 'Notions',  cls: 'lv1' }
     ];
-    const typedEl = document.getElementById('typed');
-    let rIdx = 0, cIdx = 0, deleting = false;
-    function typeTick() {
-      const word = roles[rIdx];
-      typedEl.textContent = word.slice(0, cIdx);
-      let delay = deleting ? 38 : 75;
-      if (!deleting && cIdx === word.length) { delay = 1600; deleting = true; }
-      else if (deleting && cIdx === 0) { deleting = false; rIdx = (rIdx + 1) % roles.length; delay = 350; }
-      else cIdx += deleting ? -1 : 1;
-      setTimeout(typeTick, delay);
-    }
-    typeTick();
 
-    /* ================= COMPTEURS ANIMÉS ================= */
-    const counterIO = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const el = e.target;
-          const target = parseInt(el.dataset.count, 10);
-          const dur = 1400, start = performance.now();
-          function step(now) {
-            const t = Math.min((now - start) / dur, 1);
-            const eased = 1 - Math.pow(1 - t, 3);
-            el.textContent = Math.round(eased * target);
-            if (t < 1) requestAnimationFrame(step);
-          }
-          requestAnimationFrame(step);
-          counterIO.unobserve(el);
-        }
-      });
-    }, { threshold: 0.6 });
-    document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+    document.querySelectorAll('.skill-row[data-w]').forEach(row => {
+      const w = parseInt(row.dataset.w, 10);
+      const lv = LEVELS.find(l => w >= l.min);
+      const out = row.querySelector('.sr-top i');
+      if (out) {
+        out.textContent = lv.label;
+        out.dataset.lv = lv.cls;
+      }
+      row.dataset.lv = lv.cls;
+    });
 
-    /* ================= BARRES DE COMPÉTENCES ================= */
     const fillIO = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          const w = e.target.dataset.w;
-          setTimeout(() => { e.target.style.transform = 'scaleX(' + (w / 100) + ')'; }, 150);
-          fillIO.unobserve(e.target);
-        }
+        if (!e.isIntersecting) return;
+        const row = e.target;
+        const w = parseInt(row.dataset.w, 10);
+        row.querySelectorAll('.fill').forEach((fill, i) => {
+          setTimeout(() => { fill.style.transform = 'scaleX(' + (w / 100) + ')'; }, 120 + i * 90);
+        });
+        fillIO.unobserve(row);
       });
     }, { threshold: 0.4 });
-    document.querySelectorAll('.fill').forEach(el => fillIO.observe(el));
+    document.querySelectorAll('.skill-row[data-w]').forEach(el => fillIO.observe(el));
 
-    /* ================= FILTRAGE DES PROJETS ================= */
+/* ================= FILTRAGE DES PROJETS ================= */
     const filterBtns = document.querySelectorAll('.filter-btn');
     const projects = document.querySelectorAll('#projects-grid .project');
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
+        filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
         btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
         const f = btn.dataset.filter;
         projects.forEach(card => {
           const cats = card.dataset.cat.split(' ');

@@ -1,0 +1,17 @@
+{
+  "name": "Abessolo Ovono Jean Freddy — Développeur Backend",
+  "short_name": "JF Portfolio",
+  "description": "Portfolio de Jean Freddy Abessolo Ovono — Développeur backend Python/Django, API REST, Java/Spring Boot et cloud.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b1120",
+  "theme_color": "#0f766e",
+  "lang": "fr",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/favicon-48.png", "sizes": "48x48", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
